@@ -27,13 +27,13 @@ speaker.CharacterAdded:Connect(function()
 	task.defer(myData)
 end)
 
+local Blue2 = Color3.fromRGB(0, 127, 255)
 local Red2 = Color3.fromRGB(255, 0, 127)
-local Blue2 = Color3.fromRGB(0, 0, 255)
-local Orange = Color3.fromRGB(255, 127, 0)
-local Blue = Color3.fromRGB(0, 127, 255)
 local Purple = Color3.fromRGB(127, 0, 255)
-local Green = Color3.fromRGB(0, 255, 127)
+local Blue = Color3.fromRGB(0, 0, 255)
+local Green = Color3.fromRGB(0, 255, 0)
 local Yellow = Color3.fromRGB(255, 255, 0)
+local Orange = Color3.fromRGB(255, 127, 0)
 local Red = Color3.fromRGB(255, 0, 0)
 local White = Color3.fromRGB(255, 255, 255)
 local Black = Color3.fromRGB(0, 0, 0)
@@ -601,7 +601,7 @@ local SetStats = {
         Color = Purple, Fly = 20, Speed = 300, JumpR6 = 324, JumpR15 = 334, Grav = 480.2
     },
     [3] = { 
-        Color = Blue2, Fly = 30, Speed = 600, JumpR6 = 624, JumpR15 = 634, Grav = 780.2
+        Color = Blue, Fly = 30, Speed = 600, JumpR6 = 624, JumpR15 = 634, Grav = 780.2
     },
 }
 
@@ -700,7 +700,7 @@ TextButton18.Activated:Connect(function()
         return
     end
     OnOff13 = not OnOff13
-    TextButton18.TextColor3 = OnOff13 and Blue or White
+    TextButton18.TextColor3 = OnOff13 and Blue2 or White
     if OnOff13 then
         if LoopCam then
             LoopCam:Disconnect()
