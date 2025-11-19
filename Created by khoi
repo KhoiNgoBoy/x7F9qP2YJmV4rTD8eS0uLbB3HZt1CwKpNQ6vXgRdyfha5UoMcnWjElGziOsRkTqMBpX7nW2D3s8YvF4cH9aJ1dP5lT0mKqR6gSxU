@@ -28,6 +28,7 @@ speaker.CharacterAdded:Connect(function()
 end)
 
 local Blue2 = Color3.fromRGB(0, 127, 255)
+local Green2 = Color3.fromRGB(0, 255, 127)
 local Red2 = Color3.fromRGB(255, 0, 127)
 local Purple = Color3.fromRGB(127, 0, 255)
 local Blue = Color3.fromRGB(0, 0, 255)
@@ -881,7 +882,7 @@ local function ESP(plr, logic)
 				ESPHealth.Position = UDim2.new(0, 0, 0, -50)
 				ESPHealth.Font = Enum.Font.Bangers
 				ESPHealth.TextSize = 15
-				ESPHealth.TextColor3 = Green
+				ESPHealth.TextColor3 = Green2
                 ESPHealth.TextStrokeTransparency = 0
 				ESPHealth.TextYAlignment = Enum.TextYAlignment.Bottom
 				ESPHealth.Text = plr.Name
