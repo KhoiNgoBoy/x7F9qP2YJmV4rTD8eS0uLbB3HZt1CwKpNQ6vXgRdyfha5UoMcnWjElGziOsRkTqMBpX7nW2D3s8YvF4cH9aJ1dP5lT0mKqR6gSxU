@@ -637,7 +637,7 @@ TextButton22.Activated:Connect(function()
         return
     end
     OnOff15 = not OnOff15
-    TextButton22.TextColor3 = OnOff15 and Red2 or White
+    TextButton22.TextColor3 = OnOff15 and Green2 or White
     if OnOff15 then
         execCmd('vehiclefly ' .. SetStats[StatsMode].Fly)
     else
@@ -676,7 +676,7 @@ TextButton20.Activated:Connect(function()
         return
     end
     OnOff14 = not OnOff14
-    TextButton20.TextColor3 = OnOff14 and Orange or White
+    TextButton20.TextColor3 = OnOff14 and Yellow or White
     if OnOff14 then
         execCmd('loopspeed ' .. SetStats[StatsMode].Speed)
         execCmd('loopjumppower ' .. (r15(speaker) and SetStats[StatsMode].JumpR15 or SetStats[StatsMode].JumpR6 ))
@@ -1887,7 +1887,7 @@ local SetFPS = {
         execCmd('datalimit 800')
     end,
     [3] = function()
-        SetFPSCap.TextColor3 = Green
+        SetFPSCap.TextColor3 = Green2
         execCmd('setfpscap 120')
         execCmd('datalimit 2500')
     end,
