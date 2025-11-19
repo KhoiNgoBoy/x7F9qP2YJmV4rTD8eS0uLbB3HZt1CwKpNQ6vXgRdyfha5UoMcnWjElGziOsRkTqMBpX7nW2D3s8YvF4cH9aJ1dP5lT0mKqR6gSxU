@@ -7,7 +7,7 @@ local speaker = Players.LocalPlayer or Players.PlayerAdded:Wait()
 local myCharacter = nil
 local myHumanoid = nil
 local myRootPart = nil
-y
+
 local function myData()
     local Character = speaker.Character or speaker.CharacterAdded:Wait()
     local Humanoid = Character:FindFirstChildWhichIsA("Humanoid") or Character:WaitForChild("Humanoid")
