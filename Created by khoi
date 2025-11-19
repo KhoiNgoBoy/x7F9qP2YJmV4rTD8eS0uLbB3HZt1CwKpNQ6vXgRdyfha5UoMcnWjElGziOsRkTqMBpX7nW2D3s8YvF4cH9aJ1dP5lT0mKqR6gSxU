@@ -806,7 +806,7 @@ end
 local function HPColor(hum, health)
 	local hp = hum.Health / hum.MaxHealth
 	if hp > 0.6 then
-		health.TextColor3 = Green
+		health.TextColor3 = Green2
 	elseif hp > 0.3 then
 		health.TextColor3 = Yellow
 	else
