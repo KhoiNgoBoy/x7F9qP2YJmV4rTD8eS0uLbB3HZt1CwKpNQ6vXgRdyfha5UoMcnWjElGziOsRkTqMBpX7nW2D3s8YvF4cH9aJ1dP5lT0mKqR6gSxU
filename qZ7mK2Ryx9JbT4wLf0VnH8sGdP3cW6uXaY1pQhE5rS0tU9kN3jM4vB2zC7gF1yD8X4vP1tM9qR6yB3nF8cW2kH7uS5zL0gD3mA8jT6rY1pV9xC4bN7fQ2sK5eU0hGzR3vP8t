@@ -593,16 +593,16 @@ local StatsMode = 0
 
 local SetStats = {
     [0] = { 
-        Color = White, Fly = 3, Speed = 75, JumpR6 = 99, JumpR15 = 109, Grav = 255.2
+        Color = White, Fly = 3, WS = 75, JPR15 = 109, JPR6 = 99, JHR15 = 66.5, JHR6 = 65.5, Grav = 255.2
     },
     [1] = { 
-        Color = Red, Fly = 10, Speed = 150, JumpR6 = 174, JumpR15 = 184, Grav = 330.2
+        Color = Red, Fly = 10, WS = 150, JPR15 = 184, JPR6 = 174, JHR15 = 141.5, JHR6 = 140.5, Grav = 330.2
     },
     [2] = { 
-        Color = Purple, Fly = 20, Speed = 300, JumpR6 = 324, JumpR15 = 334, Grav = 480.2
+        Color = Purple, Fly = 20, WS = 300, JPR15 = 334, JPR6 = 324, JHR15 = 291.5, JHR6 = 290.5, Grav = 480.2
     },
     [3] = { 
-        Color = Blue, Fly = 30, Speed = 600, JumpR6 = 624, JumpR15 = 634, Grav = 780.2
+        Color = Blue, Fly = 30, WS = 600, JPR15 = 634, JPR6 = 624, JHR15 = 591.5, JHR6 = 590.5, Grav = 780.2
     },
 }
 
@@ -610,24 +610,39 @@ local OldSpeed = nil
 local OldJump = nil
 local OldGrav = nil
 
-local function GetStats(stat, default)
-    if stat and stat > 0 then
-        return stat
-    end
-    return default
-end
-
-local function SpoofStats()
-    execCmd('spoofwalkspeed ' .. OldSpeed)
-    execCmd('spoofjumppower ' .. OldJump)
-end
-
 local function OldStats()
-    OldSpeed = GetStats(myHumanoid and myHumanoid.WalkSpeed, 16)
-    OldJump = myHumanoid and not myHumanoid.UseJumpPower and 10 or GetStats(myHumanoid and myHumanoid.JumpPower, (r15(speaker) and 50 or 40))
-    OldGrav = GetStats(workspace and workspace.Gravity, 196.2)
-    task.wait(0.1)
-    SpoofStats()
+    if workspace and myHumanoid then
+        if myHumanoid.WalkSpeed and myHumanoid.WalkSpeed > 0 then
+            OldSpeed = myHumanoid.WalkSpeed
+        else
+            OldSpeed = 16
+        end
+        if myHumanoid.UseJumpPower then
+            if myHumanoid.JumpPower and myHumanoid.JumpPower > 0 then
+                OldJump = myHumanoid.JumpPower
+            else
+                OldJump = r15(speaker) and 50 or 40
+            end
+        else
+            if myHumanoid.JumpHeight and myHumanoid.JumpHeight > 0 then
+                OldJump = myHumanoid.JumpHeight
+            else
+                OldJump = r15(speaker) and 7.5 or 6.5
+            end
+        end
+        if workspace.Gravity and workspace.Gravity > 0 then
+            OldGrav = workspace.Gravity
+        else
+            OldGrav = 196.2
+        end
+        task.wait(0.1)
+        execCmd('spoofwalkspeed ' .. OldSpeed)
+        execCmd('spoofjumppower ' .. OldJump)
+    else
+        OldSpeed = 16
+        OldJump = 50
+        OldGrav = 196.2
+    end
 end
 
 OldStats()
@@ -662,8 +677,20 @@ TextButton21.Activated:Connect(function()
     if OnOff14 then
         execCmd('unloopspeed')
         execCmd('unloopjumppower')
-        execCmd('loopspeed ' .. SetStats[StatsMode].Speed)
-        execCmd('loopjumppower ' .. (r15(speaker) and SetStats[StatsMode].JumpR15 or SetStats[StatsMode].JumpR6 ))
+        execCmd('loopspeed ' .. SetStats[StatsMode].WS)
+        if myHumanoid and myHumanoid.UseJumpPower then
+            if r15(speaker) then
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JPR15)
+            else
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JPR6)
+            end
+        else
+            if r15(speaker) then
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JHR15)
+            else
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JHR6)
+            end
+        end
         execCmd('gravity ' .. SetStats[StatsMode].Grav)
     end
     task.delay(1, function()
@@ -678,8 +705,20 @@ TextButton20.Activated:Connect(function()
     OnOff14 = not OnOff14
     TextButton20.TextColor3 = OnOff14 and Yellow or White
     if OnOff14 then
-        execCmd('loopspeed ' .. SetStats[StatsMode].Speed)
-        execCmd('loopjumppower ' .. (r15(speaker) and SetStats[StatsMode].JumpR15 or SetStats[StatsMode].JumpR6 ))
+        execCmd('loopspeed ' .. SetStats[StatsMode].WS)
+        if myHumanoid and myHumanoid.UseJumpPower then
+            if r15(speaker) then
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JPR15)
+            else
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JPR6)
+            end
+        else
+            if r15(speaker) then
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JHR15)
+            else
+                execCmd('loopjumppower ' .. SetStats[StatsMode].JHR6)
+            end
+        end
         execCmd('gravity ' .. SetStats[StatsMode].Grav)
     else
         execCmd('unloopspeed')
