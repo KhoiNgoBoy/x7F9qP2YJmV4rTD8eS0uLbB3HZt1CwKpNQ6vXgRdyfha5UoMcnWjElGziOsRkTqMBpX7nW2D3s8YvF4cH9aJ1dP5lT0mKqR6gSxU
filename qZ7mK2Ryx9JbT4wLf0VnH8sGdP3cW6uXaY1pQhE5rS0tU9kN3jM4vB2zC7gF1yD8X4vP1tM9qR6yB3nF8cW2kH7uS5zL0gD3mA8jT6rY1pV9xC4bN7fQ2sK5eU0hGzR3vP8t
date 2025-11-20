@@ -624,7 +624,7 @@ end
 
 local function OldStats()
     OldSpeed = GetStats(myHumanoid and myHumanoid.WalkSpeed, 16)
-    OldJump = GetStats(myHumanoid and myHumanoid.JumpPower, (r15(speaker) and 50 or 40))
+    OldJump = myHumanoid and not myHumanoid.UseJumpPower and 10 or GetStats(myHumanoid and myHumanoid.JumpPower, (r15(speaker) and 50 or 40))
     OldGrav = GetStats(workspace and workspace.Gravity, 196.2)
     task.wait(0.1)
     SpoofStats()
