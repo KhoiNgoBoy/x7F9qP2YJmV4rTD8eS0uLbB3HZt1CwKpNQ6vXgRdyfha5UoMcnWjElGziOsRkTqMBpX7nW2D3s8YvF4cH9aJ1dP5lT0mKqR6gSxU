@@ -416,12 +416,6 @@ FixErrors.TextSize = 38
 FixErrors.TextColor3 = White
 FixErrors.Parent = PARENT
 
-local SLock5 = false
-local SLock4 = false
-local SLock3 = false
-local SLock2 = false
-local SLock1 = false
-
 local Lock14 = false
 local Lock13 = false
 local Lock12 = false
@@ -1089,27 +1083,13 @@ end)
 local TouchFling = false
 
 TextButton9.Activated:Connect(function()
-    if SLock5 then
-        return
-    end
     if Lock5 then
         return
     end
     OnOff6 = not OnOff6
-    Frame2.BackgroundColor3 = White
     TextButton9.Text = OnOff6 and "Touch Fling / On" or "Touch Fling / Off"
     if OnOff6 then
-        execCmd('antifling')
-        execCmd('noclip')
         OnDied()
-        SLock4 = true
-        if AntiFling then
-            AntiFling:Disconnect()
-            AntiFling = nil
-        end
-        SLock3 = true
-        SLock2 = true
-        SLock1 = true
         TouchFling = false
         task.wait()
         TouchFling = true
@@ -1140,16 +1120,8 @@ TextButton9.Activated:Connect(function()
         until not TouchFling
     else
         TouchFling = false
-        Frame2.BackgroundColor3 = Black
-        execCmd('unantifling')
-        execCmd('unnoclip')
-        OnOff5 = false
-        SLock4 = false
         Lock5 = true
         task.wait(1)
-        SLock3 = false
-        SLock2 = false
-        SLock1 = false
         Lock5 = false
     end
 end)
@@ -1157,9 +1129,6 @@ end)
 AntiFling = nil
 
 TextButton8.Activated:Connect(function()
-    if SLock4 then
-        return
-    end
     if Lock4 then
         return
     end
@@ -1192,6 +1161,7 @@ TextButton8.Activated:Connect(function()
     end
 end)
 
+local SafeFling = false
 local SkidFling_ = false
 local FlingDied = nil
 local OldFling = nil
@@ -1199,7 +1169,7 @@ local OldFling_ = nil
 local FlingVel = nil
 
 local function SkidFling(vFling)
-    if SLock3 then
+    if SafeFling then
         return
     end
     if Lock3 then
@@ -1212,19 +1182,7 @@ local function SkidFling(vFling)
     if #players_ == 0 then
         return
     end
-    Frame2.BackgroundColor3 = White
     Frame1.BackgroundColor3 = White
-    execCmd('vehiclenoclip')
-    execCmd('antifling')
-    execCmd('nosit')
-    SLock5 = true
-    SLock4 = true
-    if AntiFling then
-        AntiFling:Disconnect()
-        AntiFling = nil
-    end
-    SLock2 = true
-    SLock1 = true
     Lock3 = true
     SkidFling_ = false
     task.wait()
@@ -1245,7 +1203,7 @@ local function SkidFling(vFling)
     if character and Humanoid and RootPart then
         FlingDied = Humanoid.Died:Connect(function()
             OnOff4 = true
-            SLock3 = true
+            SafeFling = true
         end)
         if RootPart.Velocity.Magnitude < 500 then
             OldFling = RootPart.CFrame
@@ -1277,6 +1235,7 @@ local function SkidFling(vFling)
             FlingVel.Parent = RootPart
             repeat RunService.Heartbeat:Wait()
                 if RootPart and Humanoid and TCharacter and THumanoid and TRootPart and BasePart then
+                    execCmd('nosit')
                     if BasePart.Velocity.Magnitude < 50 then
                         FlingAngle = FlingAngle + 100
                         FlingPosition(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(FlingAngle), 0, 0))
@@ -1346,22 +1305,13 @@ local function SkidFling(vFling)
         FlingVel = nil
     end
     SkidFling_ = false
-    execCmd('breakvelocity')
-    execCmd('vehicleclip')
-    execCmd('unantifling')
-    OnOff5 = false
-    SLock4 = false
     task.wait(1)
     if FlingDied then
         FlingDied:Disconnect()
         FlingDied = nil
     end
-    Frame2.BackgroundColor3 = Black
     Frame1.BackgroundColor3 = Black
     execCmd('unnosit')
-    SLock5 = false
-    SLock2 = false
-    SLock1 = false
     Lock3 = false
 end
 
@@ -1380,9 +1330,6 @@ local BringTimer = 0
 local BringDelay = 0.1
 
 TextButton5.Activated:Connect(function()
-    if SLock2 then
-        return
-    end
     if Lock2 then
         return
     end
@@ -1394,27 +1341,16 @@ TextButton5.Activated:Connect(function()
         return
     end
     OnOff3 = not OnOff3
-    Frame2.BackgroundColor3 = White
     TextButton5.Text = OnOff3 and "Loop Bring / On" or "Loop Bring / Off"
     if OnOff3 then
-        execCmd('antifling')
-        execCmd('noclip')
-        execCmd('nosit')
         OnDied()
-        SLock5 = true
-        SLock4 = true
-        if AntiFling then
-            AntiFling:Disconnect()
-            AntiFling = nil
-        end
-        SLock3 = true
-        SLock1 = true
         LoopBring = RunService.Heartbeat:Connect(function(dt)
             BringTimer += dt
             if BringTimer < BringDelay then 
                 return 
             end
             BringTimer = 0
+            execCmd('nosit')
             local players = {}
             if string.match(TextBox3.Text, "^#(%d+)$") then
                 for _, a in ipairs(players_) do
@@ -1447,17 +1383,8 @@ TextButton5.Activated:Connect(function()
                 end
                 Lock2 = true
                 task.wait(1)
-                Frame2.BackgroundColor3 = Black
                 TextButton5.Text = "Loop Bring / Off"
-                execCmd('unantifling')
-                execCmd('unnoclip')
                 execCmd('unnosit')
-                OnOff5 = false
-                OnOff3 = false
-                SLock5 = false
-                SLock4 = false
-                SLock3 = false
-                SLock1 = false
                 Lock2 = false
                 return
             end
@@ -1481,17 +1408,9 @@ TextButton5.Activated:Connect(function()
             LoopBring:Disconnect()
             LoopBring = nil
         end
-        Frame2.BackgroundColor3 = Black
-        execCmd('unantifling')
-        execCmd('unnoclip')
-        OnOff5 = false
-        SLock4 = false
         Lock2 = true
         task.wait(1)
         execCmd('unnosit')
-        SLock5 = false
-        SLock3 = false
-        SLock1 = false
         Lock2 = false
     end
 end)
@@ -1533,9 +1452,6 @@ local GotoDelay = 0.1
 local GotoIndex = 1
 
 TextButton2.Activated:Connect(function()
-    if SLock1 then
-        return
-    end
     if Lock1 then
         return
     end
@@ -1547,21 +1463,9 @@ TextButton2.Activated:Connect(function()
         return
     end
     OnOff1 = not OnOff1
-    Frame2.BackgroundColor3 = White
     TextButton2.Text = OnOff1 and "Loop Goto / On" or "Loop Goto / Off"
     if OnOff1 then
-        execCmd('vehiclenoclip')
-        execCmd('antifling')
-        execCmd('nosit')
         OnDied()
-        SLock5 = true
-        SLock4 = true
-        if AntiFling then
-            AntiFling:Disconnect()
-            AntiFling = nil
-        end
-        SLock3 = true
-        SLock2 = true
         if myRootPart and myRootPart.Velocity.Magnitude < 500 then
             OldGoto = myRootPart.CFrame
         else
@@ -1574,6 +1478,7 @@ TextButton2.Activated:Connect(function()
                 return 
             end
             GotoTimer = 0
+            execCmd('nosit')
             local players = {}
             if string.match(TextBox2.Text, "^#(%d+)$") then
                 for _, a in ipairs(players_) do
@@ -1610,17 +1515,8 @@ TextButton2.Activated:Connect(function()
                 execCmd('breakvelocity')
                 Lock1 = true
                 task.wait(1)
-                Frame2.BackgroundColor3 = Black
                 TextButton2.Text = "Loop Goto / Off"
-                execCmd('vehicleclip')
-                execCmd('unantifling')
                 execCmd('unnosit')
-                OnOff5 = false
-                OnOff1 = false
-                SLock5 = false
-                SLock4 = false
-                SLock3 = false
-                SLock2 = false
                 Lock1 = false
                 return
             end
@@ -1649,18 +1545,10 @@ TextButton2.Activated:Connect(function()
         if myRootPart and (OldGoto or OldGoto_) then
             myRootPart.CFrame = (OldGoto or OldGoto_) * CFrame.new(0, 3, 0)
         end
-        Frame2.BackgroundColor3 = Black
         execCmd('breakvelocity')
-        execCmd('vehicleclip')
-        execCmd('unantifling')
-        OnOff5 = false
-        SLock4 = false
         Lock1 = true
         task.wait(1)
         execCmd('unnosit')
-        SLock5 = false
-        SLock3 = false
-        SLock2 = false
         Lock1 = false
     end
 end)
@@ -1712,19 +1600,11 @@ speaker.CharacterAdded:Connect(function()
         Lock6 = false
     end
     if OnOff6 then
-        Frame2.BackgroundColor3 = Black
         TextButton9.Text = "Touch Fling / Off"
         TouchFling = false
-        execCmd('unantifling')
-        execCmd('unnoclip')
         OnOff6 = false
-        OnOff5 = false
-        SLock4 = false
         Lock5 = true
         task.wait(1)
-        SLock3 = false
-        SLock2 = false
-        SLock1 = false
         Lock5 = false
     end
     if OnOff4 then
@@ -1734,26 +1614,18 @@ speaker.CharacterAdded:Connect(function()
         execCmd('breakvelocity')
         OnOff4 = false
         task.wait(1)
-        SLock3 = false
+        SafeFling = false
     end
     if OnOff3 then
-        Frame2.BackgroundColor3 = Black
         TextButton5.Text = "Loop Bring / Off"
         if LoopBring then
             LoopBring:Disconnect()
             LoopBring = nil
         end
-        execCmd('unantifling')
-        execCmd('unnoclip')
-        OnOff5 = false
         OnOff3 = false
-        SLock4 = false
         Lock2 = true
         task.wait(1)
         execCmd('unnosit')
-        SLock5 = false
-        SLock3 = false
-        SLock1 = false
         Lock2 = false
     end
     if OnOff2 then
@@ -1761,7 +1633,6 @@ speaker.CharacterAdded:Connect(function()
         OnOff2 = false
     end
     if OnOff1 then
-        Frame2.BackgroundColor3 = Black
         TextButton2.Text = "Loop Goto / Off"
         if myRootPart and (OldGoto or OldGoto_) then
             myRootPart.CFrame = (OldGoto or OldGoto_) * CFrame.new(0, 3, 0)
@@ -1771,17 +1642,10 @@ speaker.CharacterAdded:Connect(function()
             LoopGoto = nil
         end
         execCmd('breakvelocity')
-        execCmd('vehicleclip')
-        execCmd('unantifling')
-        OnOff5 = false
         OnOff1 = false
-        SLock4 = false
         Lock1 = true
         task.wait(1)
         execCmd('unnosit')
-        SLock5 = false
-        SLock3 = false
-        SLock2 = false
         Lock1 = false
     end
 end)
@@ -1962,11 +1826,6 @@ FixErrors.Activated:Connect(function()
     if FixingTimer - FixingTouch <= FixingDelay then
         FixErrors.TextColor3 = Red
         FixingLock = true
-        SLock5 = false
-        SLock4 = false
-        SLock3 = false
-        SLock2 = false
-        SLock1 = false
         Lock14 = false
         Lock13 = false
         Lock7 = false
