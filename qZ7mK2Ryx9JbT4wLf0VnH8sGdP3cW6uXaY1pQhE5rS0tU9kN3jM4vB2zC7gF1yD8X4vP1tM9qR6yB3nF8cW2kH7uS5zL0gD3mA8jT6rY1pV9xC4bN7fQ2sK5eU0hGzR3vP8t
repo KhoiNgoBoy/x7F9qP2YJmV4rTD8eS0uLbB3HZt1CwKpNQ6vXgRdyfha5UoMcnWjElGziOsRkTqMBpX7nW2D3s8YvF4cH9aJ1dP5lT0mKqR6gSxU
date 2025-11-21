@@ -1161,7 +1161,7 @@ TextButton8.Activated:Connect(function()
     end
 end)
 
-local SafeFling = false
+local FlingLock = false
 local SkidFling_ = false
 local FlingDied = nil
 local OldFling = nil
@@ -1169,7 +1169,7 @@ local OldFling_ = nil
 local FlingVel = nil
 
 local function SkidFling(vFling)
-    if SafeFling then
+    if FlingLock then
         return
     end
     if Lock3 then
@@ -1203,7 +1203,7 @@ local function SkidFling(vFling)
     if character and Humanoid and RootPart then
         FlingDied = Humanoid.Died:Connect(function()
             OnOff4 = true
-            SafeFling = true
+            FlingLock = true
         end)
         if RootPart.Velocity.Magnitude < 500 then
             OldFling = RootPart.CFrame
@@ -1614,7 +1614,7 @@ speaker.CharacterAdded:Connect(function()
         execCmd('breakvelocity')
         OnOff4 = false
         task.wait(1)
-        SafeFling = false
+        FlingLock = false
     end
     if OnOff3 then
         TextButton5.Text = "Loop Bring / Off"
