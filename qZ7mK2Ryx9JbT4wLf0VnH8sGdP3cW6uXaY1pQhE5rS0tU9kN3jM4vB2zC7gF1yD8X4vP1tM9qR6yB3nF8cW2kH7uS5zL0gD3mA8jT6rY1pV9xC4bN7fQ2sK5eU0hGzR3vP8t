@@ -27,14 +27,13 @@ speaker.CharacterAdded:Connect(function()
 	task.defer(myData)
 end)
 
-local Blue3 = Color3.fromRGB(0, 255, 255)
-local Blue2 = Color3.fromRGB(0, 127, 255)
-local Green2 = Color3.fromRGB(0, 255, 127)
-local Red2 = Color3.fromRGB(255, 0, 127)
+local Rose = Color3.fromRGB(255, 0, 127)
 local Pink = Color3.fromRGB(255, 0, 255)
 local Purple = Color3.fromRGB(127, 0, 255)
 local Blue = Color3.fromRGB(0, 0, 255)
-local Green = Color3.fromRGB(0, 255, 0)
+local Azure = Color3.fromRGB(0, 127, 255)
+local Cyan = Color3.fromRGB(0, 255, 255)
+local Green = Color3.fromRGB(0, 255, 127)
 local Yellow = Color3.fromRGB(255, 255, 0)
 local Orange = Color3.fromRGB(255, 127, 0)
 local Red = Color3.fromRGB(255, 0, 0)
@@ -652,7 +651,7 @@ TextButton22.Activated:Connect(function()
         return
     end
     OnOff15 = not OnOff15
-    TextButton22.TextColor3 = OnOff15 and Green2 or White
+    TextButton22.TextColor3 = OnOff15 and Green or White
     if OnOff15 then
         execCmd('vehiclefly ' .. SetStats[StatsMode].Fly)
     else
@@ -740,7 +739,7 @@ TextButton18.Activated:Connect(function()
         return
     end
     OnOff13 = not OnOff13
-    TextButton18.TextColor3 = OnOff13 and Blue2 or White
+    TextButton18.TextColor3 = OnOff13 and Azure or White
     if OnOff13 then
         if LoopCam then
             LoopCam:Disconnect()
@@ -840,7 +839,7 @@ TextButton14.Activated:Connect(function()
         return
     end
     OnOff10 = not OnOff10
-    TextButton14.TextColor3 = OnOff10 and Blue3 or White
+    TextButton14.TextColor3 = OnOff10 and Cyan or White
     if OnOff10 then
         OnDied()
         execCmd('freeze')
@@ -881,7 +880,7 @@ end
 local function HPColor(hum, health)
 	local hp = hum.Health / hum.MaxHealth
 	if hp > 0.6 then
-		health.TextColor3 = Green2
+		health.TextColor3 = Green
 	elseif hp > 0.3 then
 		health.TextColor3 = Yellow
 	else
@@ -957,7 +956,7 @@ local function ESP(plr, logic)
 				ESPHealth.Position = UDim2.new(0, 0, 0, -50)
 				ESPHealth.Font = Enum.Font.Bangers
 				ESPHealth.TextSize = 15
-				ESPHealth.TextColor3 = Green2
+				ESPHealth.TextColor3 = Green
                 ESPHealth.TextStrokeTransparency = 0
 				ESPHealth.TextYAlignment = Enum.TextYAlignment.Bottom
 				ESPHealth.Text = plr.Name
@@ -1854,7 +1853,7 @@ local SetFPS = {
         execCmd('datalimit 800')
     end,
     [3] = function()
-        SetFPSCap.TextColor3 = Green2
+        SetFPSCap.TextColor3 = Green
         execCmd('setfpscap 120')
         execCmd('datalimit 2500')
     end,
