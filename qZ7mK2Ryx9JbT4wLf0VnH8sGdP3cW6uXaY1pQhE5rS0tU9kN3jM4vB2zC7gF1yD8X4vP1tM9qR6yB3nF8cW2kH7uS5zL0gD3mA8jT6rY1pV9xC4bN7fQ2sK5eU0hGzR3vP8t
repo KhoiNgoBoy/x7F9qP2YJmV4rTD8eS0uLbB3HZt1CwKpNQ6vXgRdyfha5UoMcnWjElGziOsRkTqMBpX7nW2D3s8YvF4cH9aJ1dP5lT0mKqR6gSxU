@@ -27,9 +27,11 @@ speaker.CharacterAdded:Connect(function()
 	task.defer(myData)
 end)
 
+local Blue3 = Color3.fromRGB(0, 255, 255)
 local Blue2 = Color3.fromRGB(0, 127, 255)
 local Green2 = Color3.fromRGB(0, 255, 127)
 local Red2 = Color3.fromRGB(255, 0, 127)
+local Pink = Color3.fromRGB(255, 0, 255)
 local Purple = Color3.fromRGB(127, 0, 255)
 local Blue = Color3.fromRGB(0, 0, 255)
 local Green = Color3.fromRGB(0, 255, 0)
@@ -132,7 +134,7 @@ TextButton14.Position = UDim2.new(1, -92, 0.5, 0)
 TextButton14.BackgroundColor3 = Black
 TextButton14.BackgroundTransparency = 0.3
 TextButton14.BorderSizePixel = 0
-TextButton14.Text = "??/3"
+TextButton14.Text = "FR/3"
 TextButton14.Font = Enum.Font.Bangers
 TextButton14.TextSize = 19
 TextButton14.TextColor3 = White
@@ -143,7 +145,7 @@ TextButton13.Position = UDim2.new(1, -43, 0.5, 0)
 TextButton13.BackgroundColor3 = Black
 TextButton13.BackgroundTransparency = 0.3
 TextButton13.BorderSizePixel = 0
-TextButton13.Text = "??/4"
+TextButton13.Text = "NC/4"
 TextButton13.Font = Enum.Font.Bangers
 TextButton13.TextSize = 19
 TextButton13.TextColor3 = White
@@ -419,6 +421,8 @@ FixErrors.Parent = PARENT
 local Lock14 = false
 local Lock13 = false
 local Lock12 = false
+local Lock9 = false
+local Lock8 = false
 local Lock7 = false
 local Lock6 = false
 local Lock5 = false
@@ -430,6 +434,8 @@ local Lock1 = false
 local OnOff15 = false
 local OnOff14 = false
 local OnOff13 = false
+local OnOff10 = false
+local OnOff9 = false
 local OnOff8 = false
 local OnOff7 = false
 local OnOff6 = false
@@ -827,6 +833,42 @@ UserInputService.TouchEnded:Connect(function(touch)
 		DeactivateJump()
 		SafeJump = nil
 	end
+end)
+
+TextButton14.Activated:Connect(function()
+    if Lock9 then 
+        return
+    end
+    OnOff10 = not OnOff10
+    TextButton14.TextColor3 = OnOff10 and Blue3 or White
+    if OnOff10 then
+        OnDied()
+        execCmd('freeze')
+    else
+        execCmd('unfreeze')
+        Lock9 = true
+        task.wait(1)
+        Lock9 = false
+    end
+end)
+
+TextButton13.Activated:Connect(function()
+    if Lock8 then
+        return
+    end
+    OnOff9 = not OnOff9
+    TextButton13.TextColor3 = OnOff9 and Pink or White
+    if OnOff9 then
+        OnDied()
+        execCmd('noclip')
+        execCmd('vehiclenoclip')
+    else
+        execCmd('unnoclip')
+        execCmd('vehicleclip')
+        Lock8 = true
+        task.wait(1)
+        Lock8 = false
+    end
 end)
 
 local ESPMode = false
@@ -1580,6 +1622,22 @@ speaker.CharacterAdded:Connect(function()
     if not OnOff14 then
         OldStats()
     end
+    if OnOff10 then
+        TextButton14.TextColor3 = White
+        execCmd('unfreeze')
+        OnOff10 = false
+        Lock9 = true
+        task.wait(1)
+        Lock9 = false
+    end
+    if OnOff9 then
+        TextButton13.TextColor3 = White
+        execCmd('vehicleclip')
+        OnOff9 = false
+        Lock8 = true
+        task.wait(1)
+        Lock8 = false
+    end
     if OnOff7 then
         Frame3.BackgroundColor3 = Black
         if workspace and workspace:FindFirstChild("InvisChair") then
@@ -1659,6 +1717,12 @@ function OnDied()
             Died = nil
         end
         Died = myHumanoid.Died:Connect(function()
+            if OnOff10 then
+                execCmd('unfreeze')
+            end
+            if OnOff9 then
+                execCmd('unnoclip nonotify')
+            end
             if OnOff7 then
                 if LoopInvis then
                     LoopInvis:Disconnect()
@@ -1828,6 +1892,8 @@ FixErrors.Activated:Connect(function()
         FixingLock = true
         Lock14 = false
         Lock13 = false
+        Lock9 = false
+        Lock8 = false
         Lock7 = false
         Lock6 = false
         Lock5 = false
@@ -1837,6 +1903,8 @@ FixErrors.Activated:Connect(function()
 		Lock1 = false
         OnOff15 = false
         OnOff14 = false
+        OnOff10 = false
+        OnOff9 = false
         OnOff8 = false
         OnOff7 = false
         OnOff6 = false
@@ -1852,6 +1920,8 @@ FixErrors.Activated:Connect(function()
         TextButton22.TextColor3 = White
         TextButton21.TextColor3 = White
         TextButton20.TextColor3 = White
+        TextButton14.TextColor3 = White
+        TextButton13.TextColor3 = White
         TextButton9.Text = "Touch Fling / Off"
         TextButton5.Text = "Loop Bring / Off"
         TextButton2.Text = "Loop Goto / Off"
@@ -1903,6 +1973,7 @@ FixErrors.Activated:Connect(function()
             Died:Disconnect()
             Died = nil
         end
+        execCmd('unfreeze')
         execCmd('unvehiclefly')
         execCmd('unloopspeed')
         execCmd('unloopjumppower')
