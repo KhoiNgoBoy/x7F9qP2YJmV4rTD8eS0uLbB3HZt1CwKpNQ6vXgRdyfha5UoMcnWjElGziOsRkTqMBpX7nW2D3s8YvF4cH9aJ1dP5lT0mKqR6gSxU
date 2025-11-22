@@ -1243,8 +1243,8 @@ local function SkidFling(vFling)
     local Handle = Accessory and Accessory:FindFirstChild("Handle") 
     if character and Humanoid and RootPart then
         FlingDied = Humanoid.Died:Connect(function()
-            OnOff4 = true
             FlingLock = true
+            OnOff4 = true
         end)
         if RootPart.Velocity.Magnitude < 500 then
             OldFling = RootPart.CFrame
@@ -1625,17 +1625,11 @@ speaker.CharacterAdded:Connect(function()
         TextButton14.TextColor3 = White
         execCmd('unfreeze')
         OnOff10 = false
-        Lock9 = true
-        task.wait(1)
-        Lock9 = false
     end
     if OnOff9 then
         TextButton13.TextColor3 = White
         execCmd('vehicleclip')
         OnOff9 = false
-        Lock8 = true
-        task.wait(1)
-        Lock8 = false
     end
     if OnOff7 then
         Frame3.BackgroundColor3 = Black
@@ -1650,28 +1644,21 @@ speaker.CharacterAdded:Connect(function()
             LoopInvis = nil
         end
         InvisTransparency(0)
-        OnOff7 = false
-        Lock6 = true
-        task.wait(1)
         execCmd('unnosit')
-        Lock6 = false
+        OnOff7 = false
     end
     if OnOff6 then
         TextButton9.Text = "Touch Fling / Off"
         TouchFling = false
         OnOff6 = false
-        Lock5 = true
-        task.wait(1)
-        Lock5 = false
     end
     if OnOff4 then
         if myRootPart and (OldFling or OldFling_) then
             myRootPart.CFrame = (OldFling or OldFling_) * CFrame.new(0, 3, 0)
         end
         execCmd('breakvelocity')
-        OnOff4 = false
-        task.wait(1)
         FlingLock = false
+        OnOff4 = false
     end
     if OnOff3 then
         TextButton5.Text = "Loop Bring / Off"
@@ -1679,11 +1666,8 @@ speaker.CharacterAdded:Connect(function()
             LoopBring:Disconnect()
             LoopBring = nil
         end
-        OnOff3 = false
-        Lock2 = true
-        task.wait(1)
         execCmd('unnosit')
-        Lock2 = false
+        OnOff3 = false
     end
     if OnOff2 then
         TextButton3.Text = "Teleport Tool / Off"
@@ -1699,11 +1683,8 @@ speaker.CharacterAdded:Connect(function()
             LoopGoto = nil
         end
         execCmd('breakvelocity')
-        OnOff1 = false
-        Lock1 = true
-        task.wait(1)
         execCmd('unnosit')
-        Lock1 = false
+        OnOff1 = false
     end
 end)
 
