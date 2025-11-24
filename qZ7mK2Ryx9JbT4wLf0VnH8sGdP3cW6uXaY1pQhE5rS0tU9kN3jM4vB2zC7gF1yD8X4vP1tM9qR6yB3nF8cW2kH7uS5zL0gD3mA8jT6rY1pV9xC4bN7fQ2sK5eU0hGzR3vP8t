@@ -864,6 +864,9 @@ TextButton13.Activated:Connect(function()
     else
         execCmd('unnoclip')
         execCmd('vehicleclip')
+        if myHumanoid and not myHumanoid.Sit then
+            myHumanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+        end
         Lock8 = true
         task.wait(1)
         Lock8 = false
