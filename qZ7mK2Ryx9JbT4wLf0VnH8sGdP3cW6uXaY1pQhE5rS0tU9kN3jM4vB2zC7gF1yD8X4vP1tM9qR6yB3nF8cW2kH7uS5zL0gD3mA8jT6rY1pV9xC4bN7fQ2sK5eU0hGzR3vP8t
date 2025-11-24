@@ -856,7 +856,7 @@ TextButton13.Activated:Connect(function()
         return
     end
     OnOff9 = not OnOff9
-    TextButton13.TextColor3 = OnOff9 and Pink or White
+    TextButton13.TextColor3 = OnOff9 and Purple or White
     if OnOff9 then
         OnDied()
         execCmd('noclip')
