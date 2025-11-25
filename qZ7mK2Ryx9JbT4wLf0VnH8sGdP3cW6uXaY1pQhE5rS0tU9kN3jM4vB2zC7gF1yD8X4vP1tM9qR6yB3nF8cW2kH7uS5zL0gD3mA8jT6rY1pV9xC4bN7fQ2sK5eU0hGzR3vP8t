@@ -860,11 +860,11 @@ TextButton14.Activated:Connect(function()
         end)
     else
         execCmd('unfreeze')
-        execCmd('unfreezeanims')
         if LoopFr then
             LoopFr:Disconnect()
             LoopFr = nil
         end
+        execCmd('unfreezeanims')
         execCmd("unnosit")
         Lock9 = true
         task.wait(1)
@@ -1648,11 +1648,11 @@ speaker.CharacterAdded:Connect(function()
     if OnOff10 then
         TextButton14.TextColor3 = White
         execCmd('unfreeze')
-        execCmd('unfreezeanims')
         if LoopFr then
             LoopFr:Disconnect()
             LoopFr = nil
         end
+        execCmd('unfreezeanims')
         execCmd('unnosit')
         OnOff10 = false
     end
@@ -1729,11 +1729,11 @@ function OnDied()
         Died = myHumanoid.Died:Connect(function()
             if OnOff10 then
                 execCmd('unfreeze')
-                execCmd('unfreezeanims')
                 if LoopFr then
                     LoopFr:Disconnect()
                     LoopFr = nil
                 end
+                execCmd('unfreezeanims')
             end
             if OnOff9 then
                 execCmd('unnoclip nonotify')
