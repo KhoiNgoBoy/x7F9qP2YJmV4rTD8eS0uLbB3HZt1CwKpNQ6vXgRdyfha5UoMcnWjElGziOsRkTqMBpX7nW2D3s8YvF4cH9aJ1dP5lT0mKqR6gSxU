@@ -834,6 +834,8 @@ UserInputService.TouchEnded:Connect(function(touch)
 	end
 end)
 
+local LoopFr = nil
+
 TextButton14.Activated:Connect(function()
     if Lock9 then 
         return
@@ -843,8 +845,21 @@ TextButton14.Activated:Connect(function()
     if OnOff10 then
         OnDied()
         execCmd('freeze')
+        if LoopFr then
+            LoopFr:Disconnect()
+            LoopFr = nil
+        end
+        local Timer = 0
+        LoopFr = RunService.Heartbeat:Connect(function(dt)
+	        Timer += dt
+	        if Timer >= 0.1 then
+		        execCmd("nosit")
+	            Timer = 0
+	        end
+        end)
     else
         execCmd('unfreeze')
+        execCmd("unnosit")
         Lock9 = true
         task.wait(1)
         Lock9 = false
@@ -1626,7 +1641,12 @@ speaker.CharacterAdded:Connect(function()
     end
     if OnOff10 then
         TextButton14.TextColor3 = White
+        if LoopFr then
+            LoopFr:Disconnect()
+            LoopFr = nil
+        end
         execCmd('unfreeze')
+        execCmd('unnosit')
         OnOff10 = false
     end
     if OnOff9 then
@@ -1701,6 +1721,10 @@ function OnDied()
         end
         Died = myHumanoid.Died:Connect(function()
             if OnOff10 then
+                if LoopFr then
+                    LoopFr:Disconnect()
+                    LoopFr = nil
+                end
                 execCmd('unfreeze')
             end
             if OnOff9 then
@@ -1909,6 +1933,10 @@ FixErrors.Activated:Connect(function()
         TextButton5.Text = "Loop Bring / Off"
         TextButton2.Text = "Loop Goto / Off"
         StatsMode = 0
+        if LoopFr then
+            LoopFr:Disconnect()
+            LoopFr = nil
+        end
         ESPMode = false
     	for i, c in pairs(COREGUI:GetChildren()) do
 		    if string.sub(c.Name, -4) == '_ESP' then
