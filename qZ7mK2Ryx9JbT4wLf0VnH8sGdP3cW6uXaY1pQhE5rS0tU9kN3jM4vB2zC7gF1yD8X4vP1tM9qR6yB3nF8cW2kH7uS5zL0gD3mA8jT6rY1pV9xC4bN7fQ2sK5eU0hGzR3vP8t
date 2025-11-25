@@ -845,7 +845,6 @@ TextButton14.Activated:Connect(function()
     if OnOff10 then
         OnDied()
         execCmd('freeze')
-        execCmd('freezeanims')
         if LoopFr then
             LoopFr:Disconnect()
             LoopFr = nil
@@ -854,6 +853,7 @@ TextButton14.Activated:Connect(function()
         LoopFr = RunService.Heartbeat:Connect(function(dt)
 	        Timer += dt
 	        if Timer >= 0.1 then
+                execCmd('freezeanims')
 		        execCmd("nosit")
 	            Timer = 0
 	        end
