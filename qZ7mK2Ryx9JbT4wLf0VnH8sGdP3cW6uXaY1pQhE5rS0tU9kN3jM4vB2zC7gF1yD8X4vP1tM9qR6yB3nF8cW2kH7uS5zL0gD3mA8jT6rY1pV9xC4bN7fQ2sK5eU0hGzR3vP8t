@@ -1839,7 +1839,7 @@ Flashback.Activated:Connect(function()
         return
     end
     FlashMode = not FlashMode
-    Flashback.TextColor3 = FlashMode and Green or White
+    Flashback.TextColor3 = FlashMode and Yellow or White
     if FlashMode then
         if flashback then
             flashback:Disconnect()
