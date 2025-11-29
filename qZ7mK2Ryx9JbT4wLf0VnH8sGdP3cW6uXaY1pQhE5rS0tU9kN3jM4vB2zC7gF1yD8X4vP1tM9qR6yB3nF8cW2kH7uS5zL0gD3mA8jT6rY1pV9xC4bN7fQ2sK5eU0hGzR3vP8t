@@ -1531,10 +1531,12 @@ TextButton2.Activated:Connect(function()
     TextButton2.Text = OnOff1 and "Loop Goto / On" or "Loop Goto / Off"
     if OnOff1 then
         OnDied()
-        if myRootPart and myRootPart.Velocity.Magnitude < 500 then
-            OldGoto = myRootPart.CFrame
-        else
-            OldGoto_ = myRootPart.CFrame
+        if myRootPart then
+            if myRootPart.Velocity.Magnitude < 500 then
+                OldGoto = myRootPart.CFrame
+            else
+                OldGoto_ = myRootPart.CFrame
+            end
         end
         GotoIndex = 1
         LoopGoto = RunService.Heartbeat:Connect(function(dt)
