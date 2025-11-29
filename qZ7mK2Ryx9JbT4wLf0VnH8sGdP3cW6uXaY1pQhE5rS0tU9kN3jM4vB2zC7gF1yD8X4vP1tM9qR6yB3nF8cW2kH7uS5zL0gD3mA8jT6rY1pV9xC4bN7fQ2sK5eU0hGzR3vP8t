@@ -1830,6 +1830,36 @@ SpawnPoint.Activated:Connect(function()
     end
 end)
 
+local FlashLock = false
+local FlashMode = false
+local flashback = nil
+
+Flashback.Activated:Connect(function()
+    if FlashLock then
+        return
+    end
+    FlashMode = not FlashMode
+    Flashback.TextColor3 = FlashMode and Green or White
+    if FlashMode then
+        if flashback then
+            flashback:Disconnect()
+            flashback = nil
+        end
+        flashback = speaker.CharacterAdded:Connect(function()
+            repeat task.wait(0.1) until myRootPart
+            execCmd('flashback')
+        end)
+    else
+        if flashback then
+            flashback:Disconnect()
+            flashback = nil
+        end
+        FlashLock = true
+        task.wait(1)
+        FlashLock = false
+    end
+end)
+
 local LightLock = false
 local LightMode = false
 local OldLight = nil
