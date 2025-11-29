@@ -372,6 +372,39 @@ TextButton1.TextSize = 20
 TextButton1.TextColor3 = White
 TextButton1.Parent = PARENT
 
+local SpawnPoint = Instance.new("TextButton")
+SpawnPoint.Size = UDim2.new(0, 30, 0, 25)
+SpawnPoint.Position = UDim2.new(1, -225, 0.5, -120)
+SpawnPoint.BackgroundColor3 = Black
+SpawnPoint.BackgroundTransparency = 0.3
+SpawnPoint.BorderSizePixel = 0
+SpawnPoint.Text = "⌂"
+SpawnPoint.Font = Enum.Font.Garamond
+SpawnPoint.TextSize = 38
+SpawnPoint.TextColor3 = White
+SpawnPoint.Parent = PARENT
+local Flashback = Instance.new("TextButton")
+Flashback.Size = UDim2.new(0, 30, 0, 25)
+Flashback.Position = UDim2.new(1, -225, 0.5, -90)
+Flashback.BackgroundColor3 = Black
+Flashback.BackgroundTransparency = 0.3
+Flashback.BorderSizePixel = 0
+Flashback.Text = "↯"
+Flashback.Font = Enum.Font.Garamond
+Flashback.TextSize = 38
+Flashback.TextColor3 = White
+Flashback.Parent = PARENT
+local SavePoint = Instance.new("TextButton")
+SavePoint.Size = UDim2.new(0, 30, 0, 25)
+SavePoint.Position = UDim2.new(1, -225, 0.5, -60)
+SavePoint.BackgroundColor3 = Black
+SavePoint.BackgroundTransparency = 0.3
+SavePoint.BorderSizePixel = 0
+SavePoint.Text = "⛳"
+SavePoint.Font = Enum.Font.Garamond
+SavePoint.TextSize = 31
+SavePoint.TextColor3 = White
+SavePoint.Parent = PARENT
 local FullLighting = Instance.new("TextButton")
 FullLighting.Size = UDim2.new(0, 30, 0, 25)
 FullLighting.Position = UDim2.new(0, 195, 0, 31)
@@ -455,10 +488,10 @@ local Section5 = {
         TextButton19.Position = UDim2.new(1, 200, 1, -78)
     end,
     [2] = function()
+        TextButton19.Position = UDim2.new(1, -92, 1, -78)
         TextButton22.Visible = true
         TextButton21.Visible = true
         TextButton20.Visible = true
-        TextButton19.Position = UDim2.new(1, -92, 1, -78)
         TextButton19.Visible = true
     end
 }
@@ -481,13 +514,13 @@ local Section4 = {
         TextButton10.Position = UDim2.new(1, -30, 0.5, -30)
     end,
     [2] = function()
+        TextButton10.Position = UDim2.new(1, -225, 0.5, -30)
         TextButton16.Visible = true
         TextButton15.Visible = true
         TextButton14.Visible = true
         TextButton13.Visible = true
         TextButton12.Visible = true
         TextButton11.Visible = true
-        TextButton10.Position = UDim2.new(1, -225, 0.5, -30)
     end
 }
 
@@ -506,14 +539,28 @@ local Section3 = {
         TextButton8.Visible = false
         TextButton7.Visible = false
         TextButton6.Position = UDim2.new(1, -30, 0.5, -150)
+        SpawnPoint.Position = UDim2.new(1, -30, 0.5, -120)
+        Flashback.Position = UDim2.new(1, -30, 0.5, -90)
+        SavePoint.Position = UDim2.new(1, -30, 0.5, -60)
     end,
     [2] = function()
+        SpawnPoint.Visible = false
+        Flashback.Visible = false
+        SavePoint.Visible = false
+    end,
+    [3] = function()
+        TextButton6.Position = UDim2.new(1, -225, 0.5, -150)
+        SpawnPoint.Position = UDim2.new(1, -225, 0.5, -120)
+        Flashback.Position = UDim2.new(1, -225, 0.5, -90)
+        SavePoint.Position = UDim2.new(1, -225, 0.5, -60)
         TextBox6.Visible = true
         TextBox5.Visible = true
         TextButton9.Visible = true
         TextButton8.Visible = true
         TextButton7.Visible = true
-        TextButton6.Position = UDim2.new(1, -225, 0.5, -150) 
+        SpawnPoint.Visible = true
+        Flashback.Visible = true
+        SavePoint.Visible = true
     end
 }
 
@@ -536,11 +583,11 @@ local Section2 = {
         FullLighting.Visible = false
     end,
     [3] = function()
+        TextButton4.Position = UDim2.new(0, 195, 0, 1)
+        FullLighting.Position = UDim2.new(0, 195, 0, 31)
         TextBox4.Visible = true
         TextBox3.Visible = true
         TextButton5.Visible = true
-        TextButton4.Position = UDim2.new(0, 195, 0, 1)
-        FullLighting.Position = UDim2.new(0, 195, 0, 31)
         FullLighting.Visible = true
     end
 }
@@ -566,16 +613,15 @@ local Section1 = {
         SetFPSCap.Visible = false
         InfiniteLoop.Visible = false
         FixErrors.Visible = false
-        
     end,
     [3] = function()
+        InfiniteLoop.Position = UDim2.new(0.5, -130, 0.5, -5) 
+        SetFPSCap.Position = UDim2.new(0.5, -130, 0.5, 25)
+        FixErrors.Position = UDim2.new(0.5, -130, 0.5, -35)
         TextBox2.Visible = true
         TextBox1.Visible = true
         TextButton3.Visible = true
         TextButton2.Visible = true
-        InfiniteLoop.Position = UDim2.new(0.5, -130, 0.5, -5) 
-        SetFPSCap.Position = UDim2.new(0.5, -130, 0.5, 25)
-        FixErrors.Position = UDim2.new(0.5, -130, 0.5, -35)
         SetFPSCap.Visible = true
         InfiniteLoop.Visible = true
         FixErrors.Visible = true
