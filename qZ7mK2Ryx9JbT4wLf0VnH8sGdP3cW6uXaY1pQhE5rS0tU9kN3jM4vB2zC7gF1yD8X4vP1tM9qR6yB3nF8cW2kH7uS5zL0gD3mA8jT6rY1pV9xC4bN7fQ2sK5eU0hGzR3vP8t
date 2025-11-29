@@ -1846,7 +1846,7 @@ Flashback.Activated:Connect(function()
             flashback = nil
         end
         flashback = speaker.CharacterAdded:Connect(function()
-            repeat task.wait(0.5) until myRootPart
+            repeat task.wait(0.6) until myRootPart
             execCmd('flashback')
         end)
     else
