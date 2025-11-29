@@ -1811,6 +1811,25 @@ function OnDied()
     end
 end
 
+local SpawnLock = false
+local SpawnMode = false
+
+SpawnPoint.Activated:Connect(function()
+    if SpawnLock then
+        return
+    end
+    SpawnMode = not SpawnMode
+    SpawnPoint.TextColor3 = SpawnMode and Cyan or White
+    if SpawnMode then
+        execCmd('spawnpoint')
+    else
+        execCmd('nospawnpoint')
+        SpawnLock = true
+        task.wait(1)
+        SpawnLock = false
+    end
+end)
+
 local LightLock = false
 local LightMode = false
 local OldLight = nil
