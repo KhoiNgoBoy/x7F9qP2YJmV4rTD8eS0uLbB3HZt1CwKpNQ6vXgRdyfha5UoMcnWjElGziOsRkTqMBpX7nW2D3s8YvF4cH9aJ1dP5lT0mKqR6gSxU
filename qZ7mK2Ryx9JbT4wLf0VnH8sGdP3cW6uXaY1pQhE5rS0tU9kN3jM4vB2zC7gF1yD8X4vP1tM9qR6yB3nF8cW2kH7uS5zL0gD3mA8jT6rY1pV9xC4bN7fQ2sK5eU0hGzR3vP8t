@@ -1821,7 +1821,7 @@ SpawnPoint.Activated:Connect(function()
     SpawnMode = not SpawnMode
     SpawnPoint.TextColor3 = SpawnMode and Cyan or White
     if SpawnMode then
-        execCmd('spawnpoint')
+        execCmd('spawnpoint 0.3')
     else
         execCmd('nospawnpoint')
         SpawnLock = true
@@ -1846,7 +1846,7 @@ Flashback.Activated:Connect(function()
             flashback = nil
         end
         flashback = speaker.CharacterAdded:Connect(function()
-            repeat task.wait(0.1) until myRootPart
+            repeat task.wait(0.5) until myRootPart
             execCmd('flashback')
         end)
     else
