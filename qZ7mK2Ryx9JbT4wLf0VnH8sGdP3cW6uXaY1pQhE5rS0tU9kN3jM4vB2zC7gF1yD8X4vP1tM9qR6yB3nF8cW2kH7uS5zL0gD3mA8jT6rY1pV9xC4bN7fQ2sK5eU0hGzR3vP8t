@@ -394,17 +394,17 @@ Flashback.Font = Enum.Font.Garamond
 Flashback.TextSize = 38
 Flashback.TextColor3 = White
 Flashback.Parent = PARENT
-local SavePoint = Instance.new("TextButton")
-SavePoint.Size = UDim2.new(0, 30, 0, 25)
-SavePoint.Position = UDim2.new(1, -225, 0.5, -60)
-SavePoint.BackgroundColor3 = Black
-SavePoint.BackgroundTransparency = 0.3
-SavePoint.BorderSizePixel = 0
-SavePoint.Text = "⛳"
-SavePoint.Font = Enum.Font.Garamond
-SavePoint.TextSize = 31
-SavePoint.TextColor3 = White
-SavePoint.Parent = PARENT
+local Checkpoint = Instance.new("TextButton")
+Checkpoint.Size = UDim2.new(0, 30, 0, 25)
+Checkpoint.Position = UDim2.new(1, -225, 0.5, -60)
+Checkpoint.BackgroundColor3 = Black
+Checkpoint.BackgroundTransparency = 0.3
+Checkpoint.BorderSizePixel = 0
+Checkpoint.Text = "⛳"
+Checkpoint.Font = Enum.Font.Garamond
+Checkpoint.TextSize = 31
+Checkpoint.TextColor3 = White
+Checkpoint.Parent = PARENT
 local FullLighting = Instance.new("TextButton")
 FullLighting.Size = UDim2.new(0, 30, 0, 25)
 FullLighting.Position = UDim2.new(0, 195, 0, 31)
@@ -541,18 +541,18 @@ local Section3 = {
         TextButton6.Position = UDim2.new(1, -30, 0.5, -150)
         SpawnPoint.Position = UDim2.new(1, -30, 0.5, -120)
         Flashback.Position = UDim2.new(1, -30, 0.5, -90)
-        SavePoint.Position = UDim2.new(1, -30, 0.5, -60)
+        Checkpoint.Position = UDim2.new(1, -30, 0.5, -60)
     end,
     [2] = function()
         SpawnPoint.Visible = false
         Flashback.Visible = false
-        SavePoint.Visible = false
+        Checkpoint.Visible = false
     end,
     [3] = function()
         TextButton6.Position = UDim2.new(1, -225, 0.5, -150)
         SpawnPoint.Position = UDim2.new(1, -225, 0.5, -120)
         Flashback.Position = UDim2.new(1, -225, 0.5, -90)
-        SavePoint.Position = UDim2.new(1, -225, 0.5, -60)
+        Checkpoint.Position = UDim2.new(1, -225, 0.5, -60)
         TextBox6.Visible = true
         TextBox5.Visible = true
         TextButton9.Visible = true
@@ -560,7 +560,7 @@ local Section3 = {
         TextButton7.Visible = true
         SpawnPoint.Visible = true
         Flashback.Visible = true
-        SavePoint.Visible = true
+        Checkpoint.Visible = true
     end
 }
 
@@ -1857,6 +1857,35 @@ Flashback.Activated:Connect(function()
         FlashLock = true
         task.wait(1)
         FlashLock = false
+    end
+end)
+
+local PointLock = false
+local PointMode = false
+local checkpoint = nil
+
+Checkpoint.Activated:Connect(function()
+    if PointLock then
+        return
+    end
+    PointMode = not PointMode
+    Checkpoint.TextColor3 = PointMode and Red or White
+    if PointMode then
+        local Pos = getRoot(speaker.Character).CFrame
+        if myRootPart then
+            checkpoint = myRootPart.CFrame
+        end
+        notify('Checkpoint','Checkpoint saved at '..tostring(Pos))
+    else
+        if myRootPart and checkpoint then
+            myRootPart.CFrame = checkpoint * CFrame.new(0, 3, 0)
+            execCmd('breakvelocity')
+        end
+        notify('Checkpoint','Back to checkpoint')
+        OldPoint = nil
+        PointLock = true
+        task.wait(1)
+        PointLock = false
     end
 end)
 
