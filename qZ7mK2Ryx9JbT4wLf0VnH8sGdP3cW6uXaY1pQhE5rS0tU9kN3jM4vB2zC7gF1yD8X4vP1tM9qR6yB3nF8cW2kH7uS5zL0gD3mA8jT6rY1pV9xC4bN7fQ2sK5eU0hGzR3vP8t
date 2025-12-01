@@ -378,9 +378,9 @@ SpawnPoint.Position = UDim2.new(1, -225, 0.5, -120)
 SpawnPoint.BackgroundColor3 = Black
 SpawnPoint.BackgroundTransparency = 0.3
 SpawnPoint.BorderSizePixel = 0
-SpawnPoint.Text = "✰"
+SpawnPoint.Text = "⌂"
 SpawnPoint.Font = Enum.Font.Garamond
-SpawnPoint.TextSize = 39
+SpawnPoint.TextSize = 38
 SpawnPoint.TextColor3 = White
 SpawnPoint.Parent = PARENT
 local Flashback = Instance.new("TextButton")
@@ -389,9 +389,9 @@ Flashback.Position = UDim2.new(1, -225, 0.5, -90)
 Flashback.BackgroundColor3 = Black
 Flashback.BackgroundTransparency = 0.3
 Flashback.BorderSizePixel = 0
-Flashback.Text = "↯"
+Flashback.Text = "↺"
 Flashback.Font = Enum.Font.Garamond
-Flashback.TextSize = 38
+Flashback.TextSize = 36
 Flashback.TextColor3 = White
 Flashback.Parent = PARENT
 local Checkpoint = Instance.new("TextButton")
@@ -400,9 +400,9 @@ Checkpoint.Position = UDim2.new(1, -225, 0.5, -60)
 Checkpoint.BackgroundColor3 = Black
 Checkpoint.BackgroundTransparency = 0.3
 Checkpoint.BorderSizePixel = 0
-Checkpoint.Text = "⛳"
+Checkpoint.Text = "✕"
 Checkpoint.Font = Enum.Font.Garamond
-Checkpoint.TextSize = 31
+Checkpoint.TextSize = 45
 Checkpoint.TextColor3 = White
 Checkpoint.Parent = PARENT
 local FullLighting = Instance.new("TextButton")
@@ -1839,7 +1839,7 @@ Flashback.Activated:Connect(function()
         return
     end
     FlashMode = not FlashMode
-    Flashback.TextColor3 = FlashMode and Yellow or White
+    Flashback.TextColor3 = FlashMode and Green or White
     if FlashMode then
         if flashback then
             flashback:Disconnect()
