@@ -680,9 +680,6 @@ local function OldStats()
         else
             OldGrav = 196.2
         end
-        task.wait(0.1)
-        execCmd('spoofwalkspeed ' .. OldSpeed)
-        execCmd('spoofjumppower ' .. OldJump)
     else
         OldSpeed = 16
         OldJump = 50
