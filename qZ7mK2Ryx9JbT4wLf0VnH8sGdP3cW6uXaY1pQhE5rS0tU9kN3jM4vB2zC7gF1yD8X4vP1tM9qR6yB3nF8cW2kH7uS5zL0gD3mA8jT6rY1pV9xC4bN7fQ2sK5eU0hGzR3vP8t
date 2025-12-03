@@ -1165,7 +1165,6 @@ TextButton11.Activated:Connect(function()
             InvisWeld.Parent = InvisSeat
             InvisSeat.CFrame = OldInvis 
             OldInvis = nil
-            execCmd('breakvelocity')
         end
         Lock6 = false
     else
