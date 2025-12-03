@@ -1163,7 +1163,7 @@ TextButton11.Activated:Connect(function()
             InvisWeld.Part0 = InvisSeat
             InvisWeld.Part1 = myRootPart
             InvisWeld.Parent = InvisSeat
-            InvisSeat.CFrame = OldInvis * CFrame.new(0, 3, 0)
+            InvisSeat.CFrame = OldInvis 
             OldInvis = nil
             execCmd('breakvelocity')
         end
