@@ -1128,7 +1128,6 @@ TextButton11.Activated:Connect(function()
     OnOff7 = not OnOff7
     Frame3.BackgroundColor3 = OnOff7 and White or Black
     if OnOff7 then
-        execCmd('jump')
         Lock6 = true
         if myRootPart then
             if workspace and workspace:FindFirstChild("InvisChair") then
@@ -1137,7 +1136,7 @@ TextButton11.Activated:Connect(function()
             InvisVoid = workspace and workspace.FallenPartsDestroyHeight or -500
             local OldInvis = myRootPart.CFrame
             workspace.FallenPartsDestroyHeight = 0/0
-            task.wait(0.3)
+            task.wait(0.1)
             myRootPart.CFrame = CFrame.new(0, -1/0, 0)
             task.wait(0.15)
             if LoopInvis then
