@@ -405,6 +405,17 @@ Checkpoint.Font = Enum.Font.Garamond
 Checkpoint.TextSize = 45
 Checkpoint.TextColor3 = White
 Checkpoint.Parent = PARENT
+local Xradiation = Instance.new("TextButton")
+Xradiation.Size = UDim2.new(0, 30, 0, 25)
+Xradiation.Position = UDim2.new(0, 195, 0, 61)
+Xradiation.BackgroundColor3 = Black
+Xradiation.BackgroundTransparency = 0.3
+Xradiation.BorderSizePixel = 0
+Xradiation.Text = "☢"
+Xradiation.Font = Enum.Font.Garamond
+Xradiation.TextSize = 36
+Xradiation.TextColor3 = White
+Xradiation.Parent = PARENT
 local FullLighting = Instance.new("TextButton")
 FullLighting.Size = UDim2.new(0, 30, 0, 25)
 FullLighting.Position = UDim2.new(0, 195, 0, 31)
@@ -1884,6 +1895,47 @@ Checkpoint.Activated:Connect(function()
     end
 end)
 
+XrayLock = false
+XrayMode = false
+LoopXray = nil
+
+local function Xray(num)
+    for _, p in pairs(workspace:GetDescendants()) do
+        if p:IsA("BasePart") and not p.Parent:FindFirstChildWhichIsA("Humanoid") and not (p.Parent.Parent and p.Parent.Parent:FindFirstChildWhichIsA("Humanoid")) then
+            p.LocalTransparencyModifier = num
+        end
+    end
+end
+
+Xradiation.Activated:Connect(function()
+    if XrayLock then 
+        return
+    end
+    XrayMode = not XrayMode
+    Xradiation.TextColor3 = XrayMode and Yellow or White
+    if XrayMode then
+        Xray(0.6)
+        if LoopXray then
+            LoopXray:Disconnect() 
+            LoopXray = nil
+        end
+        LoopXray = workspace.DescendantAdded:Connect(function(p)
+            if p:IsA("BasePart") and not p.Parent:FindFirstChildWhichIsA("Humanoid") and not (p.Parent.Parent and p.Parent.Parent:FindFirstChildWhichIsA("Humanoid")) then
+                p.LocalTransparencyModifier = 0.6
+            end
+        end)
+    else
+        if LoopXray then
+            LoopXray:Disconnect() 
+            LoopXray = nil
+        end
+        Xray(0)
+        XrayLock = true
+        task.wait(1)
+        XrayLock = false
+    end
+end)
+
 local LightLock = false
 local LightMode = false
 local OldLight = nil
@@ -1894,7 +1946,7 @@ FullLighting.Activated:Connect(function()
         return
     end
     LightMode = not LightMode
-    FullLighting.TextColor3 = LightMode and Yellow or White
+    FullLighting.TextColor3 = LightMode and Orange or White
     if LightMode then
         if Lighting and not OldLight then
             OldLight = {
