@@ -1958,7 +1958,6 @@ FullLighting.Activated:Connect(function()
                 ClockTime = Lighting.ClockTime ,
                 FogEnd = Lighting.FogEnd,
                 GlobalShadows = Lighting.GlobalShadows,
-                Ambient = Lighting.Ambient,
                 OutdoorAmbient = Lighting.OutdoorAmbient,
             }
         end
@@ -1972,8 +1971,7 @@ FullLighting.Activated:Connect(function()
 		        Lighting.ClockTime = 14
 		        Lighting.FogEnd = 100000
 		        Lighting.GlobalShadows = false
-                Lighting.Ambient = Color3.fromRGB(140, 140, 140)
-		        Lighting.OutdoorAmbient = Color3.fromRGB(180, 180, 180)
+		        Lighting.OutdoorAmbient = Color3.fromRGB(138, 138, 138)
             end
         end)
     else
