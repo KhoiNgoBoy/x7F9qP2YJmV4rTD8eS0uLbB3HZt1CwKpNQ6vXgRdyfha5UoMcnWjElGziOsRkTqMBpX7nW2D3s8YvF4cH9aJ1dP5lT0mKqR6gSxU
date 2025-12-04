@@ -588,17 +588,21 @@ local Section2 = {
         TextBox3.Visible = false
         TextButton5.Visible = false
         TextButton4.Position = UDim2.new(0, 0, 0, 1) 
+        Xradiation.Position = UDim2.new(0, 0, 0, 61)
         FullLighting.Position = UDim2.new(0, 0, 0, 31)
     end,
     [2] = function()
+        Xradiation.Visible = false
         FullLighting.Visible = false
     end,
     [3] = function()
         TextButton4.Position = UDim2.new(0, 195, 0, 1)
+        Xradiation.Position = UDim2.new(0, 195, 0, 61)
         FullLighting.Position = UDim2.new(0, 195, 0, 31)
         TextBox4.Visible = true
         TextBox3.Visible = true
         TextButton5.Visible = true
+        Xradiation.Visible = true
         FullLighting.Visible = true
     end
 }
