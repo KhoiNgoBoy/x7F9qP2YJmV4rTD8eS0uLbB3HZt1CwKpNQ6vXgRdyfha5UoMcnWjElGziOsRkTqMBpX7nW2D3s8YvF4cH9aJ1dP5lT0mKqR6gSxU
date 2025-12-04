@@ -1916,7 +1916,7 @@ Xradiation.Activated:Connect(function()
         return
     end
     XrayMode = not XrayMode
-    Xradiation.TextColor3 = XrayMode and Orange or White
+    Xradiation.TextColor3 = XrayMode and Red or White
     if XrayMode then
         Xray(0.6)
         if LoopXray then
