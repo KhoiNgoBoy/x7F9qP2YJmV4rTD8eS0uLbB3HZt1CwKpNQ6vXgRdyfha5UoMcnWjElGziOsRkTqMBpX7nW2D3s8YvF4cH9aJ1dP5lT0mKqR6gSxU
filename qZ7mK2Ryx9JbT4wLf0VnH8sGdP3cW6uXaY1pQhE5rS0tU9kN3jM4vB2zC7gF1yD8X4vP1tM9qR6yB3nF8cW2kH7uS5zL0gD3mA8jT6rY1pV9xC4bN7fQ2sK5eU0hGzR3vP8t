@@ -1967,11 +1967,11 @@ FullLighting.Activated:Connect(function()
         end
         LoopLight = RunService.RenderStepped:Connect(function()
             if Lighting then
-                Lighting.Brightness = 3
+                Lighting.Brightness = 2
 		        Lighting.ClockTime = 14
 		        Lighting.FogEnd = 100000
 		        Lighting.GlobalShadows = false
-		        Lighting.OutdoorAmbient = Color3.fromRGB(138, 138, 138)
+		        Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
             end
         end)
     else
