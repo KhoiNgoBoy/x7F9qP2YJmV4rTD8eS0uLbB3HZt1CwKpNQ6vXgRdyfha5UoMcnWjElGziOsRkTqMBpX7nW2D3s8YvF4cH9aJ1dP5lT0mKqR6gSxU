@@ -1916,7 +1916,7 @@ Xradiation.Activated:Connect(function()
         return
     end
     XrayMode = not XrayMode
-    Xradiation.TextColor3 = XrayMode and Yellow or White
+    Xradiation.TextColor3 = XrayMode and Orange or White
     if XrayMode then
         Xray(0.6)
         if LoopXray then
@@ -1950,7 +1950,7 @@ FullLighting.Activated:Connect(function()
         return
     end
     LightMode = not LightMode
-    FullLighting.TextColor3 = LightMode and Orange or White
+    FullLighting.TextColor3 = LightMode and Yellow or White
     if LightMode then
         if Lighting and not OldLight then
             OldLight = {
