@@ -1899,9 +1899,9 @@ Checkpoint.Activated:Connect(function()
     end
 end)
 
-XrayLock = false
-XrayMode = false
-LoopXray = nil
+local XrayLock = false
+local XrayMode = false
+local LoopXray = nil
 
 local function Xray(num)
     for _, p in pairs(workspace:GetDescendants()) do
