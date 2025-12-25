@@ -455,9 +455,9 @@ SetFPSCap.Position = UDim2.new(0.5, -130, 0.5, 26)
 SetFPSCap.BackgroundColor3 = Black
 SetFPSCap.BackgroundTransparency = 0.3
 SetFPSCap.BorderSizePixel = 0
-SetFPSCap.Text = "〽"
+SetFPSCap.Text = "↯"
 SetFPSCap.Font = Enum.Font.Garamond
-SetFPSCap.TextSize = 38
+SetFPSCap.TextSize = 37
 SetFPSCap.TextColor3 = White
 SetFPSCap.Parent = PARENT
 
