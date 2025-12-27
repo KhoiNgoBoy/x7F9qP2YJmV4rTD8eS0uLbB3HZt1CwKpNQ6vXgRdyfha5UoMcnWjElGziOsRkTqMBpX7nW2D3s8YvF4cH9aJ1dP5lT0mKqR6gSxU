@@ -457,7 +457,7 @@ SetFPSCap.BackgroundTransparency = 0.3
 SetFPSCap.BorderSizePixel = 0
 SetFPSCap.Text = "↯"
 SetFPSCap.Font = Enum.Font.Garamond
-SetFPSCap.TextSize = 37
+SetFPSCap.TextSize = 38
 SetFPSCap.TextColor3 = White
 SetFPSCap.Parent = PARENT
 
