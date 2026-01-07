@@ -1152,6 +1152,9 @@ TextButton11.Activated:Connect(function()
             local OldInvis = myRootPart.CFrame
             workspace.FallenPartsDestroyHeight = 0/0
             task.wait(0.1)
+            if myHumanoid and myHumanoid.Sit then
+                myHumanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+            end
             myRootPart.CFrame = CFrame.new(0, -1/0, 0)
             task.wait(0.15)
             if LoopInvis then
