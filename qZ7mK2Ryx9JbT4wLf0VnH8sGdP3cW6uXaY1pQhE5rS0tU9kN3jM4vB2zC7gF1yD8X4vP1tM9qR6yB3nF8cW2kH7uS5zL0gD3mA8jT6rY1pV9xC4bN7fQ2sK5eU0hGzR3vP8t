@@ -1125,12 +1125,12 @@ local InvisVoid = nil
 local LoopInvis = nil
 
 local function InvisTransparency(num)
-    if myCharacter then
+    if myCharacter then 
         for _, Part in ipairs(myCharacter:GetDescendants()) do
-            if Part:IsA("BasePart") and Part.Name ~= "HumanoidRootPart" then
-                Part.Transparency = num
-            elseif Part:IsA("Decal") then
-                Part.Transparency = num
+            if (Part:IsA("BasePart") and Part.Name ~= "HumanoidRootPart") or Part:IsA("Decal") then
+                if Part.Transparency ~= 1 then
+                    Part.Transparency = num
+                end
             end
         end
     end
