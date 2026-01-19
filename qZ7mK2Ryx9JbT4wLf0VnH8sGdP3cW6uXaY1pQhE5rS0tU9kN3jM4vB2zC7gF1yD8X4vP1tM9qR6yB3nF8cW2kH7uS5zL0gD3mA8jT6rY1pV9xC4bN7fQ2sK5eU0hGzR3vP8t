@@ -40,6 +40,17 @@ local Red = Color3.fromRGB(255, 0, 0)
 local White = Color3.fromRGB(255, 255, 255)
 local Black = Color3.fromRGB(0, 0, 0)
 
+local TextButton23 = Instance.new("TextButton")
+TextButton23.Size = UDim2.new(0, 30, 0, 25)
+TextButton23.Position = UDim2.new(1, -225, 0.5, 0)
+TextButton23.BackgroundColor3 = Black
+TextButton23.BackgroundTransparency = 0.3
+TextButton23.BorderSizePixel = 0
+TextButton23.Text = "⌘"
+TextButton23.Font = Enum.Font.Garamond
+TextButton23.TextSize = 38
+TextButton23.TextColor3 = White
+TextButton23.Parent = PARENT
 local TextButton22 = Instance.new("TextButton")
 TextButton22.Size = UDim2.new(0, 43, 0, 25)
 TextButton22.Position = UDim2.new(1, -141, 0.5, 103)
@@ -405,28 +416,6 @@ Checkpoint.Font = Enum.Font.Garamond
 Checkpoint.TextSize = 45
 Checkpoint.TextColor3 = White
 Checkpoint.Parent = PARENT
-local Xradiation = Instance.new("TextButton")
-Xradiation.Size = UDim2.new(0, 30, 0, 25)
-Xradiation.Position = UDim2.new(0, 195, 0, 61)
-Xradiation.BackgroundColor3 = Black
-Xradiation.BackgroundTransparency = 0.3
-Xradiation.BorderSizePixel = 0
-Xradiation.Text = "☢"
-Xradiation.Font = Enum.Font.Garamond
-Xradiation.TextSize = 38
-Xradiation.TextColor3 = White
-Xradiation.Parent = PARENT
-local FullLighting = Instance.new("TextButton")
-FullLighting.Size = UDim2.new(0, 30, 0, 25)
-FullLighting.Position = UDim2.new(0, 195, 0, 31)
-FullLighting.BackgroundColor3 = Black
-FullLighting.BackgroundTransparency = 0.3
-FullLighting.BorderSizePixel = 0
-FullLighting.Text = "☀︎"
-FullLighting.Font = Enum.Font.Garamond
-FullLighting.TextSize = 38
-FullLighting.TextColor3 = White
-FullLighting.Parent = PARENT
 local FixErrors = Instance.new("TextButton")
 FixErrors.Size = UDim2.new(0, 30, 0, 25)
 FixErrors.Position = UDim2.new(0.5, -130, 0.5, -34)
@@ -522,9 +511,11 @@ local Section4 = {
         TextButton13.Visible = false
         TextButton12.Visible = false
         TextButton11.Visible = false
+        TextButton23.Position = UDim2.new(1, -30, 0.5, 0)
         TextButton10.Position = UDim2.new(1, -30, 0.5, -30)
     end,
     [2] = function()
+        TextButton23.Position = UDim2.new(1, -225, 0.5, 0)
         TextButton10.Position = UDim2.new(1, -225, 0.5, -30)
         TextButton16.Visible = true
         TextButton15.Visible = true
@@ -587,23 +578,13 @@ local Section2 = {
         TextBox4.Visible = false
         TextBox3.Visible = false
         TextButton5.Visible = false
-        TextButton4.Position = UDim2.new(0, 0, 0, 1) 
-        Xradiation.Position = UDim2.new(0, 0, 0, 61)
-        FullLighting.Position = UDim2.new(0, 0, 0, 31)
+        TextButton4.Position = UDim2.new(0, 0, 0, 1)
     end,
     [2] = function()
-        Xradiation.Visible = false
-        FullLighting.Visible = false
-    end,
-    [3] = function()
         TextButton4.Position = UDim2.new(0, 195, 0, 1)
-        Xradiation.Position = UDim2.new(0, 195, 0, 61)
-        FullLighting.Position = UDim2.new(0, 195, 0, 31)
         TextBox4.Visible = true
         TextBox3.Visible = true
         TextButton5.Visible = true
-        Xradiation.Visible = true
-        FullLighting.Visible = true
     end
 }
 
@@ -1899,98 +1880,6 @@ Checkpoint.Activated:Connect(function()
         PointLock = true
         task.wait(1)
         PointLock = false
-    end
-end)
-
-local XrayLock = false
-local XrayMode = false
-local LoopXray = nil
-
-local function Xray(num)
-    for _, p in pairs(workspace:GetDescendants()) do
-        if p:IsA("BasePart") and not p.Parent:FindFirstChildWhichIsA("Humanoid") and not (p.Parent.Parent and p.Parent.Parent:FindFirstChildWhichIsA("Humanoid")) then
-            p.LocalTransparencyModifier = num
-        end
-    end
-end
-
-Xradiation.Activated:Connect(function()
-    if XrayLock then 
-        return
-    end
-    XrayMode = not XrayMode
-    Xradiation.TextColor3 = XrayMode and Cyan or White
-    if XrayMode then
-        Xray(0.6)
-        if LoopXray then
-            LoopXray:Disconnect() 
-            LoopXray = nil
-        end
-        LoopXray = workspace.DescendantAdded:Connect(function(p)
-            if p:IsA("BasePart") and not p.Parent:FindFirstChildWhichIsA("Humanoid") and not (p.Parent.Parent and p.Parent.Parent:FindFirstChildWhichIsA("Humanoid")) then
-                p.LocalTransparencyModifier = 0.6
-            end
-        end)
-    else
-        if LoopXray then
-            LoopXray:Disconnect() 
-            LoopXray = nil
-        end
-        Xray(0)
-        XrayLock = true
-        task.wait(1)
-        XrayLock = false
-    end
-end)
-
-local LightLock = false
-local LightMode = false
-local OldLight = nil
-local LoopLight = nil
-
-FullLighting.Activated:Connect(function()
-    if LightLock then
-        return
-    end
-    LightMode = not LightMode
-    FullLighting.TextColor3 = LightMode and Yellow or White
-    if LightMode then
-        if Lighting and not OldLight then
-            OldLight = {
-                Brightness = Lighting.Brightness, 
-                ClockTime = Lighting.ClockTime ,
-                FogEnd = Lighting.FogEnd,
-                GlobalShadows = Lighting.GlobalShadows,
-                OutdoorAmbient = Lighting.OutdoorAmbient,
-            }
-        end
-        if LoopLight then
-            LoopLight:Disconnect()
-            LoopLight = nil
-        end
-        LoopLight = RunService.RenderStepped:Connect(function()
-            if Lighting then
-                Lighting.Brightness = 2
-		        Lighting.ClockTime = 14
-		        Lighting.FogEnd = 100000
-		        Lighting.GlobalShadows = false
-		        Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
-            end
-        end)
-    else
-        if LoopLight then
-            LoopLight:Disconnect()
-            LoopLight = nil
-        end
-        if Lighting and OldLight then
-            for i, v in pairs(OldLight) do
-                Lighting[i] = v
-            end
-            OldLight = nil
-        end
-        LightLock = true
-        task.wait(1)
-        LightLock = false
     end
 end)
 
