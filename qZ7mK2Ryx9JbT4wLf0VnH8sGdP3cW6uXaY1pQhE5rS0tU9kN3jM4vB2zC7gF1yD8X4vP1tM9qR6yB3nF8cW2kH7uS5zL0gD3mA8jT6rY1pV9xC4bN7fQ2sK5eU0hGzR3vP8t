@@ -1,6 +1,6 @@
 loadstring(game:HttpGet('https://raw.githubusercontent.com/KhoiNgoBoy/x7F9qP2YJmV4rTD8eS0uLbB3HZt1CwKpNQ6vXgRdyfha5UoMcnWjElGziOsRkTqMBpX7nW2D3s8YvF4cH9aJ1dP5lT0mKqR6gSxU/refs/heads/main/cmds262729252528265282626282562925292526w82242992722925926265w5w7337e66e8192628299292'))()
 
--- Created by khoi 0.2.6
+-- Created by khoi
 
 local speaker = Players.LocalPlayer or Players.PlayerAdded:Wait()
 
@@ -785,7 +785,7 @@ TextButton18.Activated:Connect(function()
             LoopCam = nil
         end
         LoopCam = RunService.RenderStepped:Connect(function()
-            if workspace and myRootPart and myHumanoid and not myHumanoid.Sit then
+            if workspace and myRootPart and myHumanoid and not myHumanoid.SeatPart then
                 myHumanoid.AutoRotate = false
                 local Camera = workspace.CurrentCamera.CFrame.LookVector
 		    	local Rotate = CFrame.lookAt(myRootPart.Position, myRootPart.Position + Vector3.new(Camera.X, 0, Camera.Z))
@@ -923,7 +923,7 @@ TextButton13.Activated:Connect(function()
         execCmd('vehiclenoclip')
     else
         execCmd('unnoclip')
-        if myHumanoid and not myHumanoid.Sit then
+        if myHumanoid and not myHumanoid.SeatPart then
             myHumanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
         end
         execCmd('vehicleclip')
@@ -1140,14 +1140,15 @@ TextButton11.Activated:Connect(function()
             LoopInvis = RunService.Heartbeat:Connect(function(dt)
 	            Timer += dt
 	            if Timer >= 0.1 then
-                    if myHumanoid and myHumanoid.SeatPart then
-				        myHumanoid.Sit = false
-                    end
 		            InvisTransparency(0.5)
 		            execCmd("nosit")
 	            	Timer = 0
 	            end
             end)
+            if myHumanoid and myHumanoid.SeatPart then
+				execCmd("jump")
+                task.wait(0.2)
+            end
             task.wait(0.1)
             myRootPart.CFrame = CFrame.new(0, -1/0, 0)
             task.wait(0.15)
