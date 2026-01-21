@@ -1132,12 +1132,6 @@ TextButton11.Activated:Connect(function()
             InvisVoid = workspace and workspace.FallenPartsDestroyHeight or -500
             local OldInvis = myRootPart.CFrame
             workspace.FallenPartsDestroyHeight = 0/0
-            task.wait(0.1)
-            if myHumanoid and myHumanoid.Sit then
-                myHumanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
-            end
-            myRootPart.CFrame = CFrame.new(0, -1/0, 0)
-            task.wait(0.15)
             if LoopInvis then
                 LoopInvis:Disconnect()
                 LoopInvis = nil
@@ -1146,11 +1140,17 @@ TextButton11.Activated:Connect(function()
             LoopInvis = RunService.Heartbeat:Connect(function(dt)
 	            Timer += dt
 	            if Timer >= 0.1 then
+                    if myHumanoid and myHumanoid.SeatPart then
+				        myHumanoid.Sit = false
+                    end
 		            InvisTransparency(0.5)
 		            execCmd("nosit")
 	            	Timer = 0
 	            end
             end)
+            task.wait(0.1)
+            myRootPart.CFrame = CFrame.new(0, -1/0, 0)
+            task.wait(0.15)
             local InvisSeat = Instance.new("Seat")
             InvisSeat.Name = "InvisChair"
             InvisSeat.Anchored = false
