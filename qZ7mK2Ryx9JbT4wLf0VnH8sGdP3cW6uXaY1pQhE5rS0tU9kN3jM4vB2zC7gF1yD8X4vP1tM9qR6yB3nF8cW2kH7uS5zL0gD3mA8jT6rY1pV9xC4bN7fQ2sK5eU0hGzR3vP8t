@@ -894,7 +894,7 @@ TextButton14.Activated:Connect(function()
 	        if Timer >= 0.1 then
                 execCmd('freezeanims')
 		        execCmd("nosit")
-	            Timer = 0
+	            Timer -= 0.1
 	        end
         end)
     else
@@ -934,6 +934,26 @@ TextButton13.Activated:Connect(function()
 end)
 
 local ESPMode = false
+local ClearESP = nil
+
+local function clearESP()
+    local Timer = 0
+    ClearESP = RunService.Heartbeat:Connect(function(dt)
+	    Timer += dt
+	    if Timer >= 1 then
+            if not ESPMode then
+                for i, c in pairs(COREGUI:GetChildren()) do
+		            if string.sub(c.Name, -4) == '_ESP' then
+			            c:Destroy()
+		            end
+            	end
+            end
+            Timer -= 1
+	    end
+    end)
+end
+
+clearESP()
 
 local function ESPStroke(color)
     local lum = 0.299 * color.R + 0.587 * color.G + 0.114 * color.B
@@ -1142,7 +1162,7 @@ TextButton11.Activated:Connect(function()
 	            if Timer >= 0.1 then
 		            InvisTransparency(0.5)
 		            execCmd("nosit")
-	            	Timer = 0
+	            	Timer -= 0.1
 	            end
             end)
             if myHumanoid and myHumanoid.SeatPart then
