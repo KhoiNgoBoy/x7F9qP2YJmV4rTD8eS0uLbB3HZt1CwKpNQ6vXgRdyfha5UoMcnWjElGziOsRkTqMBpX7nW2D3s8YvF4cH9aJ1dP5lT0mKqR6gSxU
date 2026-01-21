@@ -1,6 +1,6 @@
 loadstring(game:HttpGet('https://raw.githubusercontent.com/KhoiNgoBoy/x7F9qP2YJmV4rTD8eS0uLbB3HZt1CwKpNQ6vXgRdyfha5UoMcnWjElGziOsRkTqMBpX7nW2D3s8YvF4cH9aJ1dP5lT0mKqR6gSxU/refs/heads/main/cmds262729252528265282626282562925292526w82242992722925926265w5w7337e66e8192628299292'))()
 
--- Created by khoi
+-- Created by khoi 0.2.6
 
 local speaker = Players.LocalPlayer or Players.PlayerAdded:Wait()
 
