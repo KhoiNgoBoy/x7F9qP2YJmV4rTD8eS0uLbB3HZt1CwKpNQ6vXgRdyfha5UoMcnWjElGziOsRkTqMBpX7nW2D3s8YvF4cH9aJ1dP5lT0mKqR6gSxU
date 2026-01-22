@@ -2130,6 +2130,7 @@ end)
 
 task.wait(1)
 
+execCmd('darkchat')
 execCmd('setfpscap 60')
 execCmd('datalimit 1500')
 execCmd('maxslopeangle')
