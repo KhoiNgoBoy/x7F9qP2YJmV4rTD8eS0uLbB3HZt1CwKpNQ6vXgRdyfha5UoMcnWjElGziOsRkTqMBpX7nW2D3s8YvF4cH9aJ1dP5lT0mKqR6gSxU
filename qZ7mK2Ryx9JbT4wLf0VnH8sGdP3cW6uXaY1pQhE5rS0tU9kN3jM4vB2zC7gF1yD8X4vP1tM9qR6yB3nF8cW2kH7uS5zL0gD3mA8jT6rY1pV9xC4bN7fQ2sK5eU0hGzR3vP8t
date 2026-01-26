@@ -1703,7 +1703,6 @@ speaker.CharacterAdded:Connect(function()
     if OnOff15 then
         execCmd('unvehiclefly')
         execCmd('vehiclefly ' .. SetStats[StatsMode].Fly)
-        execCmd('flashback')
     end
     if not OnOff14 then
         OldStats()
