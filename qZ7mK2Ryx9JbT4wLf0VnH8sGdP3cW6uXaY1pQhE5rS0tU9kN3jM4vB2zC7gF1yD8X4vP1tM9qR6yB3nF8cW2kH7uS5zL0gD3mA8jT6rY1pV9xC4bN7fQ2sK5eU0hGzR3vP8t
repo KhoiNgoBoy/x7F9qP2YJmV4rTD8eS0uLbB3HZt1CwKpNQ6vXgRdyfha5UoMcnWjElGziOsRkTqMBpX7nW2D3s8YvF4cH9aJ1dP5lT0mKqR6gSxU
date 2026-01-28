@@ -527,9 +527,15 @@ local Section4 = {
         TextButton10.Position = UDim2.new(1, -30, 0.5, -30)
     end,
     [2] = function()
+        TextButton24.Visible = false
+        TextButton23.Visible = false
+    end,
+    [3] = function()
         TextButton24.Position = UDim2.new(1, -30, 0.5, 44)
         TextButton23.Position = UDim2.new(1, -225, 0.5, 0)
         TextButton10.Position = UDim2.new(1, -225, 0.5, -30)
+        TextButton24.Visible = true
+        TextButton23.Visible = true
         TextButton16.Visible = true
         TextButton15.Visible = true
         TextButton14.Visible = true
