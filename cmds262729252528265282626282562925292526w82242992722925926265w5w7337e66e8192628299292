@@ -9619,7 +9619,7 @@ end)
 
 addcmd("strengthen", {}, function(args, speaker)
 	for _, child in pairs(speaker.Character:GetDescendants()) do
-		if child.ClassName == "Part" then
+		if child:IsA("BasePart") then
 			if args[1] then
 				child.CustomPhysicalProperties = PhysicalProperties.new(args[1], 0.3, 0.5)
 			else
