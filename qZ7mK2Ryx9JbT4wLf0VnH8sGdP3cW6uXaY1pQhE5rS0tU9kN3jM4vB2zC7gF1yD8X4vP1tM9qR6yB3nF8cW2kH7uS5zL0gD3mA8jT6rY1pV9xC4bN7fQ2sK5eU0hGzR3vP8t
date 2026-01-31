@@ -152,7 +152,7 @@ TextButton15.Position = UDim2.new(1, -141, 0.5, 0)
 TextButton15.BackgroundColor3 = Black
 TextButton15.BackgroundTransparency = 0.3
 TextButton15.BorderSizePixel = 0
-TextButton15.Text = "??/2"
+TextButton15.Text = "ST/2"
 TextButton15.Font = Enum.Font.Bangers
 TextButton15.TextSize = 18
 TextButton15.TextColor3 = White
@@ -472,6 +472,7 @@ SetFPSCap.Parent = PARENT
 local Lock14 = false
 local Lock13 = false
 local Lock12 = false
+local Lock10 = false
 local Lock9 = false
 local Lock8 = false
 local Lock7 = false
@@ -485,6 +486,7 @@ local Lock1 = false
 local OnOff15 = false
 local OnOff14 = false
 local OnOff13 = false
+local OnOff11 = false
 local OnOff10 = false
 local OnOff9 = false
 local OnOff8 = false
@@ -902,6 +904,40 @@ UserInputService.TouchEnded:Connect(function(touch)
 		DeactivateJump()
 		SafeJump = nil
 	end
+end)
+
+local LoopSt = nil
+
+TextButton15.Activated:Connect(function()
+    if Lock10 then 
+        return
+    end
+    OnOff11 = not OnOff11
+    TextButton15.TextColor3 = OnOff11 and Orange or White
+    if OnOff11 then
+        OnDied()
+        if LoopSt then
+            LoopSt:Disconnect()
+            LoopSt = nil
+        end
+        local Timer = 0
+        LoopSt = RunService.Heartbeat:Connect(function(dt)
+	        Timer += dt
+	        if Timer >= 0.1 then
+                execCmd('strengthen')
+	            Timer -= 0.1
+	        end
+        end)
+    else
+        if LoopSt then
+            LoopSt:Disconnect()
+            LoopSt = nil
+        end
+        execCmd("unstrengthen")
+        Lock10 = true
+        task.wait(1)
+        Lock10 = false
+    end
 end)
 
 local LoopFr = nil
@@ -1738,6 +1774,15 @@ speaker.CharacterAdded:Connect(function()
     if not OnOff14 then
         OldStats()
     end
+    if OnOff11 then
+        TextButton15.TextColor3 = White
+        if LoopSt then
+            LoopSt:Disconnect()
+            LoopSt = nil
+        end
+        execCmd("unstrengthen")
+        OnOff11 = false
+    end
     if OnOff10 then
         TextButton14.TextColor3 = White
         execCmd('unfreeze')
@@ -1820,6 +1865,13 @@ function OnDied()
             Died = nil
         end
         Died = myHumanoid.Died:Connect(function()
+            if OnOff11 then
+                if LoopSt then
+                    LoopSt:Disconnect()
+                    LoopSt = nil
+                end
+                execCmd("unstrengthen")
+            end
             if OnOff10 then
                 execCmd('unfreeze')
                 if LoopFr then
@@ -2027,6 +2079,7 @@ FixErrors.Activated:Connect(function()
         FixingLock = true
         Lock14 = false
         Lock13 = false
+        Lock10 = false
         Lock9 = false
         Lock8 = false
         Lock7 = false
@@ -2038,6 +2091,7 @@ FixErrors.Activated:Connect(function()
 		Lock1 = false
         OnOff15 = false
         OnOff14 = false
+        OnOff11 = false
         OnOff10 = false
         OnOff9 = false
         OnOff8 = false
@@ -2055,12 +2109,17 @@ FixErrors.Activated:Connect(function()
         TextButton22.TextColor3 = White
         TextButton21.TextColor3 = White
         TextButton20.TextColor3 = White
+        TextButton15.TextColor3 = White
         TextButton14.TextColor3 = White
         TextButton13.TextColor3 = White
         TextButton9.Text = "Touch Fling / Off"
         TextButton5.Text = "Loop Bring / Off"
         TextButton2.Text = "Loop Goto / Off"
         StatsMode = 0
+        if LoopSt then
+            LoopSt:Disconnect()
+            LoopSt = nil
+        end
         if LoopFr then
             LoopFr:Disconnect()
             LoopFr = nil
@@ -2114,6 +2173,7 @@ FixErrors.Activated:Connect(function()
         end
         execCmd('unfreeze')
         execCmd('unfreezeanims')
+        execCmd("unstrengthen")
         execCmd('unnoclip')
         execCmd('vehicleclip')
         execCmd('unvehiclefly')
