@@ -908,6 +908,26 @@ end)
 
 local LoopSt = nil
 
+local function Strengthen()
+    if myCharacter then
+        for _, Part in pairs(myCharacter:GetDescendants()) do
+            if Part:IsA("BasePart") then
+                Part.CustomPhysicalProperties = PhysicalProperties.new(100, 1, 0)
+            end
+        end
+    end
+end
+
+local function Weaken()
+    if myCharacter then
+        for _, Part in pairs(myCharacter:GetDescendants()) do
+            if Part:IsA("BasePart") then
+                Part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5)
+            end
+        end
+    end
+end
+
 TextButton15.Activated:Connect(function()
     if Lock10 then 
         return
@@ -924,7 +944,7 @@ TextButton15.Activated:Connect(function()
         LoopSt = RunService.Heartbeat:Connect(function(dt)
 	        Timer += dt
 	        if Timer >= 0.1 then
-                execCmd('strengthen')
+                Strengthen()
 	            Timer -= 0.1
 	        end
         end)
@@ -933,7 +953,7 @@ TextButton15.Activated:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
-        execCmd("unstrengthen")
+        Weaken()
         Lock10 = true
         task.wait(1)
         Lock10 = false
@@ -1780,7 +1800,6 @@ speaker.CharacterAdded:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
-        execCmd("unstrengthen")
         OnOff11 = false
     end
     if OnOff10 then
@@ -1870,7 +1889,6 @@ function OnDied()
                     LoopSt:Disconnect()
                     LoopSt = nil
                 end
-                execCmd("unstrengthen")
             end
             if OnOff10 then
                 execCmd('unfreeze')
@@ -2173,7 +2191,6 @@ FixErrors.Activated:Connect(function()
         end
         execCmd('unfreeze')
         execCmd('unfreezeanims')
-        execCmd("unstrengthen")
         execCmd('unnoclip')
         execCmd('vehicleclip')
         execCmd('unvehiclefly')
