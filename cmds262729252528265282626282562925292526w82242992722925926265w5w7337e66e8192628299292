@@ -9623,7 +9623,7 @@ addcmd("strengthen", {}, function(args, speaker)
 			if args[1] then
 				child.CustomPhysicalProperties = PhysicalProperties.new(args[1], 0.3, 0.5)
 			else
-				child.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
+				child.CustomPhysicalProperties = PhysicalProperties.new(100, 1, 0)
 			end
 		end
 	end
