@@ -928,7 +928,7 @@ local function Strengthen()
         execCmd('gravity 1000')
         for _, Part in pairs(myCharacter:GetDescendants()) do
             if Part:IsA("BasePart") then
-                Part.CustomPhysicalProperties = PhysicalProperties.new(100, 1, 0)
+                Part.CustomPhysicalProperties = PhysicalProperties.new(100, 2, 0, 100, 100)
             end
         end
     end
@@ -939,7 +939,7 @@ local function Weaken()
         execCmd('gravity ' .. OldGrav)
         for _, Part in pairs(myCharacter:GetDescendants()) do
             if Part:IsA("BasePart") then
-                Part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5)
+                Part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)
             end
         end
     end
