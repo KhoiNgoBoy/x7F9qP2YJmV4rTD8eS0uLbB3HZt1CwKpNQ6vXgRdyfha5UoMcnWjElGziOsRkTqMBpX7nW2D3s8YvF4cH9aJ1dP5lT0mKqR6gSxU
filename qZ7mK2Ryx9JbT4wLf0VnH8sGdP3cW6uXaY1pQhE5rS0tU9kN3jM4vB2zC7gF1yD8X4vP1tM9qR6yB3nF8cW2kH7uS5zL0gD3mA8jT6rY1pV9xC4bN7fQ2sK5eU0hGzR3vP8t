@@ -1891,6 +1891,7 @@ function OnDied()
                     LoopSt:Disconnect()
                     LoopSt = nil
                 end
+                Weaken()
             end
             if OnOff10 then
                 execCmd('unfreeze')
@@ -2140,6 +2141,7 @@ FixErrors.Activated:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
+        Weaken()
         if LoopFr then
             LoopFr:Disconnect()
             LoopFr = nil
