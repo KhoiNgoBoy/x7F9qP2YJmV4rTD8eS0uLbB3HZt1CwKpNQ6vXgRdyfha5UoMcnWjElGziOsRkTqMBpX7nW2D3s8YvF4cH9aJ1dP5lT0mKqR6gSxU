@@ -747,8 +747,8 @@ TextButton21.Activated:Connect(function()
     end
     if OnOff14 then
         execCmd('unloopspeed')
-        execCmd('unloopjumppower')
         execCmd('loopspeed ' .. SetStats[StatsMode].WS)
+        execCmd('unloopjumppower')
         if myHumanoid and myHumanoid.UseJumpPower then
             if r15(speaker) then
                 execCmd('loopjumppower ' .. SetStats[StatsMode].JPR15)
@@ -805,14 +805,13 @@ TextButton20.Activated:Connect(function()
         end)
     else
         execCmd('unloopspeed')
+        execCmd('walkspeed ' .. OldSpeed)
         execCmd('unloopjumppower')
+        execCmd('jumppower ' .. OldJump)
         if LoopGrav then
             LoopGrav:Disconnect()
             LoopGrav = nil
         end
-        task.wait(0.1)
-        execCmd('walkspeed ' .. OldSpeed)
-        execCmd('jumppower ' .. OldJump)
         execCmd('gravity ' .. OldGrav)
         Lock13 = true
         task.wait(1)
