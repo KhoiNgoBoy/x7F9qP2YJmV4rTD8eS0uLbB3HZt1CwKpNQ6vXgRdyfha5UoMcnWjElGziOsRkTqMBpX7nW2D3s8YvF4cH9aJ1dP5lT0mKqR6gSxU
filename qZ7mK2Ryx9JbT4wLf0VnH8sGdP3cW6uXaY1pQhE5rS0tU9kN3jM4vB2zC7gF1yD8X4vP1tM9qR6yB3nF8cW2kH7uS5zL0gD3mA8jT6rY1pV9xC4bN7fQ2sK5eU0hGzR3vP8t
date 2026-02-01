@@ -762,12 +762,13 @@ TextButton21.Activated:Connect(function()
                 execCmd('loopjumppower ' .. SetStats[StatsMode].JHR6)
             end
         end
-        execCmd('gravity ' .. SetStats[StatsMode].Grav)
     end
     task.delay(1, function()
         StatsLock = false
     end)
 end)
+
+local LoopGrav = nil
 
 TextButton20.Activated:Connect(function()
     if Lock13 then 
@@ -790,10 +791,25 @@ TextButton20.Activated:Connect(function()
                 execCmd('loopjumppower ' .. SetStats[StatsMode].JHR6)
             end
         end
-        execCmd('gravity ' .. SetStats[StatsMode].Grav)
+        if LoopGrav then
+            LoopGrav:Disconnect()
+            LoopGrav = nil
+        end
+        local Timer = 0
+        LoopGrav = RunService.Heartbeat:Connect(function(dt)
+	        Timer += dt
+	        if Timer >= 0.2 then
+                execCmd('gravity ' .. SetStats[StatsMode].Grav)
+	            Timer -= 0.2
+	        end
+        end)
     else
         execCmd('unloopspeed')
         execCmd('unloopjumppower')
+        if LoopGrav then
+            LoopGrav:Disconnect()
+            LoopGrav = nil
+        end
         task.wait(0.1)
         execCmd('walkspeed ' .. OldSpeed)
         execCmd('jumppower ' .. OldJump)
@@ -2137,6 +2153,10 @@ FixErrors.Activated:Connect(function()
         TextButton5.Text = "Loop Bring / Off"
         TextButton2.Text = "Loop Goto / Off"
         StatsMode = 0
+        if LoopGrav then
+            LoopGrav:Disconnect()
+            LoopGrav = nil
+        end
         if LoopSt then
             LoopSt:Disconnect()
             LoopSt = nil
