@@ -2141,7 +2141,6 @@ FixErrors.Activated:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
-        Weaken()
         if LoopFr then
             LoopFr:Disconnect()
             LoopFr = nil
