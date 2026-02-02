@@ -925,7 +925,6 @@ local LoopSt = nil
 
 local function Strengthen()
     if myCharacter then
-        execCmd('gravity 1000')
         for _, Part in pairs(myCharacter:GetDescendants()) do
             if Part:IsA("BasePart") then
                 Part.CustomPhysicalProperties = PhysicalProperties.new(100, 2, 0, 100, 100)
@@ -936,7 +935,6 @@ end
 
 local function Weaken()
     if myCharacter then
-        execCmd('gravity ' .. OldGrav)
         for _, Part in pairs(myCharacter:GetDescendants()) do
             if Part:IsA("BasePart") then
                 Part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)
@@ -961,6 +959,7 @@ TextButton15.Activated:Connect(function()
         LoopSt = RunService.Heartbeat:Connect(function(dt)
 	        Timer += dt
 	        if Timer >= 0.1 then
+                execCmd('gravity 1000')
                 Strengthen()
 	            Timer -= 0.1
 	        end
@@ -970,6 +969,7 @@ TextButton15.Activated:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
+        execCmd('gravity ' .. OldGrav)
         Weaken()
         Lock10 = true
         task.wait(1)
@@ -1808,7 +1808,7 @@ speaker.CharacterAdded:Connect(function()
         execCmd('unvehiclefly')
         execCmd('vehiclefly ' .. SetStats[StatsMode].Fly)
     end
-    if not OnOff14 then
+    if not (OnOff11 or OnOff14) then
         OldStats()
     end
     if OnOff11 then
