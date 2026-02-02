@@ -798,9 +798,9 @@ TextButton20.Activated:Connect(function()
         local Timer = 0
         LoopGrav = RunService.Heartbeat:Connect(function(dt)
 	        Timer += dt
-	        if Timer >= 0.2 then
+	        if Timer >= 0.1 then
                 execCmd('gravity ' .. SetStats[StatsMode].Grav)
-	            Timer -= 0.2
+	            Timer -= 0.1
 	        end
         end)
     else
@@ -959,7 +959,6 @@ TextButton15.Activated:Connect(function()
         LoopSt = RunService.Heartbeat:Connect(function(dt)
 	        Timer += dt
 	        if Timer >= 0.1 then
-                execCmd('gravity 1000')
                 Strengthen()
 	            Timer -= 0.1
 	        end
@@ -969,7 +968,6 @@ TextButton15.Activated:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
-        execCmd('gravity ' .. OldGrav)
         Weaken()
         Lock10 = true
         task.wait(1)
@@ -1808,7 +1806,7 @@ speaker.CharacterAdded:Connect(function()
         execCmd('unvehiclefly')
         execCmd('vehiclefly ' .. SetStats[StatsMode].Fly)
     end
-    if not (OnOff11 or OnOff14) then
+    if not OnOff14 then
         OldStats()
     end
     if OnOff11 then
@@ -1817,6 +1815,7 @@ speaker.CharacterAdded:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
+        Weaken()
         OnOff11 = false
     end
     if OnOff10 then
@@ -1906,7 +1905,6 @@ function OnDied()
                     LoopSt:Disconnect()
                     LoopSt = nil
                 end
-                Weaken()
             end
             if OnOff10 then
                 execCmd('unfreeze')
