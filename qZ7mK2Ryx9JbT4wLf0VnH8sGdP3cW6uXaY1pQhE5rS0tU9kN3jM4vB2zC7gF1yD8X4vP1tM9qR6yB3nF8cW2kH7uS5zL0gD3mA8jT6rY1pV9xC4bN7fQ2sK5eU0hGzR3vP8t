@@ -2257,7 +2257,8 @@ end)
 
 task.wait(1)
 
+execCmd('antivoid')
 execCmd('darkchat')
+execCmd('maxslopeangle')
 execCmd('setfpscap 60')
 execCmd('datalimit 1500')
-execCmd('maxslopeangle')
