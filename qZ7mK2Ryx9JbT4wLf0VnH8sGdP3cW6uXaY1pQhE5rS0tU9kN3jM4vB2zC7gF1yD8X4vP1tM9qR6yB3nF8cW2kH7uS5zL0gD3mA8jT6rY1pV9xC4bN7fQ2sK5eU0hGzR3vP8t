@@ -927,7 +927,7 @@ local function Strengthen()
     if myCharacter then
         for _, Part in pairs(myCharacter:GetDescendants()) do
             if Part:IsA("BasePart") then
-                Part.CustomPhysicalProperties = PhysicalProperties.new(100, 2, 0, 100, 100)
+                Part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
             end
         end
     end
@@ -937,7 +937,7 @@ local function Weaken()
     if myCharacter then
         for _, Part in pairs(myCharacter:GetDescendants()) do
             if Part:IsA("BasePart") then
-                Part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)
+                Part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5)
             end
         end
     end
