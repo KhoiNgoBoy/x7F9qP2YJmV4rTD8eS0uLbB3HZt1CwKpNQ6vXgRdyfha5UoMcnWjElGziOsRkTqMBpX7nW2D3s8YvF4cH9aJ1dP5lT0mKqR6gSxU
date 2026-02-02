@@ -2257,6 +2257,7 @@ end)
 
 task.wait(1)
 
+execCmd('antiafk nonotify')
 execCmd('antivoid nonotify')
 execCmd('darkchat')
 execCmd('maxslopeangle')
