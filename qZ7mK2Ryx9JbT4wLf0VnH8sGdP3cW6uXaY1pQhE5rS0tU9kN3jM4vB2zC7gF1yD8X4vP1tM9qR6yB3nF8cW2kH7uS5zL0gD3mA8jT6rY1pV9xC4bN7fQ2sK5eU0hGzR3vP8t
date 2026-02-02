@@ -2257,7 +2257,7 @@ end)
 
 task.wait(1)
 
-execCmd('antivoid')
+execCmd('antivoid nonotify')
 execCmd('darkchat')
 execCmd('maxslopeangle')
 execCmd('setfpscap 60')
