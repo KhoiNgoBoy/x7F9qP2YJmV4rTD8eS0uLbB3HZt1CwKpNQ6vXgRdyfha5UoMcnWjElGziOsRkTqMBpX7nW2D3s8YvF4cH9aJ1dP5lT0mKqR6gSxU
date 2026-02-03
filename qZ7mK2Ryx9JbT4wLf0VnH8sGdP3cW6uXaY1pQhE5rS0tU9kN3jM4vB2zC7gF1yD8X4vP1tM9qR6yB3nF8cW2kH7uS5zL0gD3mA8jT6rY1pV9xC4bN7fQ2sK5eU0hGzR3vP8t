@@ -506,10 +506,12 @@ local Section5 = {
         TextButton21.Visible = false
         TextButton20.Visible = false
         TextButton19.Visible = false
+        JumpVisible(true)
         TextButton19.Position = UDim2.new(1, 200, 1, -78)
     end,
     [2] = function()
         TextButton19.Position = UDim2.new(1, -92, 1, -78)
+        JumpVisible(false)
         TextButton22.Visible = true
         TextButton21.Visible = true
         TextButton20.Visible = true
@@ -855,16 +857,9 @@ TextButton18.Activated:Connect(function()
 end)
 
 local JumpMode = false
+local HideJump = nil
 local LoopJump = nil
 local SafeJump = nil
-
-local HideJump = RunService.RenderStepped:Connect(function()
-	local PlayerGui = speaker:FindFirstChild("PlayerGui")
-    local JumpGui = PlayerGui and PlayerGui:FindFirstChild("JumpButton", true)
-    if JumpGui then
-        JumpGui.Visible = SetGui5 == 1
-    end
-end)
 
 local function TouchJump(touchPos)
 	local absPos = TextButton19.AbsolutePosition
@@ -888,6 +883,27 @@ local function ActivateJump()
 		end)
 	end
 end
+
+function JumpVisible(bool)
+	local PlayerGui = speaker:FindFirstChild("PlayerGui")
+    local JumpGui = PlayerGui and PlayerGui:FindFirstChild("JumpButton", true)
+    if JumpGui then
+        JumpGui.Visible = bool
+    end
+end
+
+local function hideJump()
+    local Timer = 0
+    HideJump = RunService.Heartbeat:Connect(function(dt)
+	    Timer += dt
+	    if Timer >= 1 then
+            JumpVisible(SetGui5 == 1)
+	        Timer -= 1
+	    end
+    end)
+end
+
+hideJump()
 
 local function DeactivateJump()
 	JumpMode = false
