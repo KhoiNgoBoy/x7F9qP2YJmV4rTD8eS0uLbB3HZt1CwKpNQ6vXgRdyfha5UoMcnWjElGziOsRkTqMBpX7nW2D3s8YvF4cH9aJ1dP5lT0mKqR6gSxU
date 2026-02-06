@@ -1625,6 +1625,7 @@ TextButton5.Activated:Connect(function()
                     LoopBring:Disconnect()
                     LoopBring = nil
                 end
+                OnOff3 = false
                 Lock2 = true
                 task.wait(1)
                 TextButton5.Text = "Loop Bring / Off"
@@ -1759,6 +1760,7 @@ TextButton2.Activated:Connect(function()
                     myRootPart.CFrame = (OldGoto or OldGoto_) * CFrame.new(0, 3, 0)
                     execCmd('breakvelocity')
                 end
+                OnOff1 = false
                 Lock1 = true
                 task.wait(1)
                 TextButton2.Text = "Loop Goto / Off"
