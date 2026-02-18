@@ -937,8 +937,6 @@ UserInputService.TouchEnded:Connect(function(touch)
 	end
 end)
 
-local LoopSt = nil
-
 local function Strengthen()
     if myCharacter then
         for _, Part in pairs(myCharacter:GetDescendants()) do
@@ -959,6 +957,8 @@ local function Weaken()
     end
 end
 
+local LoopSt = nil
+
 TextButton15.Activated:Connect(function()
     if Lock10 then 
         return
@@ -971,13 +971,9 @@ TextButton15.Activated:Connect(function()
             LoopSt:Disconnect()
             LoopSt = nil
         end
-        local Timer = 0
-        LoopSt = RunService.Heartbeat:Connect(function(dt)
-	        Timer += dt
-	        if Timer >= 0.1 then
-                Strengthen()
-	            Timer -= 0.1
-	        end
+        LoopSt = RunService.Stepped:Connect(function()
+            Strengthen()
+	        execCmd('deletevelocity')
         end)
     else
         if LoopSt then
